@@ -3,385 +3,818 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Сборки ПК на заказ · Челябинск</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<title>NIZAMOV.TECH — Сборки ПК · Челябинск</title>
 <style>
-  :root {
-    --bg:#0d0d0f; --surface:#131316; --surface2:#17171b;
-    --border:#1e1e24; --text:#f0f0f0; --muted:#6b6b7a;
-    --green:#00e676; --yellow:#e8ff00; --orange:#ff6b00; --purple:#c084fc;
-  }
-  *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{background:var(--bg);color:var(--text);font-family:'Manrope',sans-serif;overflow-x:hidden;position:relative}
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&display=swap');
 
-  /* 🎞️ NOISE OVERLAY */
-  body::before{
-    content:'';position:fixed;top:0;left:0;width:100%;height:100%;
-    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    opacity:.035;pointer-events:none;z-index:9999;mix-blend-mode:soft-light
-  }
+:root {
+  --bg: #030508;
+  --bg2: #060a10;
+  --surface: #080d14;
+  --border: #0f1e2e;
+  --cyan: #00f5ff;
+  --yellow: #ffe600;
+  --orange: #ff6600;
+  --pink: #ff0080;
+  --purple: #b400ff;
+  --green: #00ff88;
+  --text: #c8d8e8;
+  --muted: #3a5060;
+  --glow-cyan: 0 0 20px rgba(0,245,255,0.4);
+  --glow-yellow: 0 0 20px rgba(255,230,0,0.4);
+}
 
-  /* ✨ MOUSE GLOW */
-  #glow{
-    position:fixed;width:600px;height:600px;border-radius:50%;
-    background:radial-gradient(circle,rgba(232,255,0,0.08) 0%,transparent 70%);
-    transform:translate(-50%,-50%);pointer-events:none;z-index:0;
-    transition:opacity .3s;opacity:0
-  }
-  body.loaded #glow{opacity:1}
+* { margin:0; padding:0; box-sizing:border-box; }
 
-  /* HERO */
-  .hero{padding:56px 24px 32px;text-align:center;position:relative;z-index:1}
-  .hero::after{
-    content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
-    width:700px;height:260px;background:radial-gradient(ellipse,rgba(232,255,0,0.07) 0%,transparent 70%);
-    pointer-events:none;animation:pulse 4s ease-in-out infinite
-  }
-  @keyframes pulse{0%,100%{opacity:.7}50%{opacity:1}}
-  .hero-pill{display:inline-block;font-size:10px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:var(--yellow);border:1px solid rgba(232,255,0,0.3);padding:6px 18px;border-radius:100px;margin-bottom:22px;animation:up .5s ease both}
-  .hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(44px,9vw,88px);line-height:.92;letter-spacing:2px;margin-bottom:16px;animation:up .5s .1s ease both}
-  .hero h1 span{color:var(--yellow);display:block}
-  .hero p{font-size:14px;color:var(--muted);max-width:380px;margin:0 auto;line-height:1.6;animation:up .5s .2s ease both}
+html { scroll-behavior: smooth; }
 
-  /* GRID */
-  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px;padding:28px 24px 80px;max-width:1400px;margin:0 auto;position:relative;z-index:1}
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Rajdhani', sans-serif;
+  overflow-x: hidden;
+  cursor: none;
+}
 
-  /* CARD */
-  .card{
-    background:var(--surface);border:1px solid var(--border);border-radius:20px;
-    overflow:hidden;display:flex;flex-direction:column;transition:transform .3s,box-shadow .3s,border-color .3s;
-    animation:up .5s ease both;transform-style:preserve-3d;will-change:transform
-  }
-  .card:hover{box-shadow:0 20px 50px rgba(0,0,0,.5);border-color:rgba(255,255,255,.15)}
-  .c1{--cc:var(--green);animation-delay:.05s}
-  .c2{--cc:var(--yellow);animation-delay:.12s}
-  .c3{--cc:var(--orange);animation-delay:.19s}
-  .c4{--cc:var(--purple);animation-delay:.26s}
+/* CUSTOM CURSOR */
+.cursor {
+  position: fixed;
+  width: 8px; height: 8px;
+  background: var(--cyan);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s;
+  box-shadow: var(--glow-cyan);
+}
+.cursor-ring {
+  position: fixed;
+  width: 28px; height: 28px;
+  border: 1px solid rgba(0,245,255,0.4);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.15s, width 0.2s, height 0.2s;
+}
 
-  /* CARD HEADER */
-  .ch{padding:22px 24px 18px;border-bottom:1px solid var(--border);position:relative}
-  .ch::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--cc)}
-  .tier{font-size:10px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:var(--cc);margin-bottom:5px}
-  .cname{font-family:'Bebas Neue',sans-serif;font-size:38px;letter-spacing:1px;line-height:1;margin-bottom:5px}
-  .ctag{font-size:12px;color:var(--muted);line-height:1.5}
-  .hit{
-    position:absolute;top:20px;right:20px;background:var(--yellow);color:#000;
-    font-size:9px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;
-    padding:4px 10px;border-radius:100px;animation:hit-pulse 2s ease-in-out infinite
-  }
-  @keyframes hit-pulse{0%,100%{box-shadow:0 0 0 0 rgba(232,255,0,0.4)}50%{box-shadow:0 0 0 8px rgba(232,255,0,0)}}
+/* SCANLINES */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.08) 2px,
+    rgba(0,0,0,0.08) 4px
+  );
+  pointer-events: none;
+  z-index: 100;
+}
 
-  /* FPS ROW */
-  .fps{display:flex;gap:1px;background:var(--border);border-bottom:1px solid var(--border)}
-  .fi{flex:1;padding:12px 6px;background:var(--surface2);text-align:center}
-  .fr{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
-  .fv{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--cc);line-height:1}
-  .fs{font-size:9px;color:var(--muted);font-weight:600}
+/* NOISE */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 99;
+  opacity: 0.4;
+}
 
-  /* BODY */
-  .cb{padding:18px 24px;flex:1}
-  .sec-lbl{font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+/* BG GRID */
+.bg-grid {
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,245,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,245,255,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
 
-  /* SPECS */
-  .specs{display:flex;flex-direction:column;gap:6px;margin-bottom:18px}
-  .spec{
-    display:flex;align-items:flex-start;gap:10px;padding:10px 12px;
-    background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.04);
-    border-radius:10px;transition:background .2s,border-color .2s
-  }
-  .spec:hover{background:rgba(255,255,255,.04);border-color:var(--cc)}
-  .si{font-size:14px;flex-shrink:0;margin-top:2px}
-  .sl{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
-  .sn{font-size:12px;font-weight:700;color:var(--text);line-height:1.4}
-  .sd{font-size:11px;color:var(--muted);line-height:1.4;margin-top:1px}
+/* BG GLOW ORBS */
+.orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+.orb1 { width:400px;height:400px;background:rgba(0,245,255,0.04);top:-100px;right:-100px; }
+.orb2 { width:300px;height:300px;background:rgba(180,0,255,0.05);bottom:100px;left:-50px; }
+.orb3 { width:200px;height:200px;background:rgba(255,0,128,0.04);top:50%;left:40%; }
 
-  /* GAMES */
-  .games{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:18px}
-  .g{
-    font-size:11px;font-weight:600;padding:4px 9px;border-radius:6px;
-    background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);
-    color:var(--text);transition:background .2s,border-color .2s,transform .2s
-  }
-  .g:hover{background:rgba(255,255,255,.08);border-color:var(--cc);transform:translateY(-1px)}
+/* CONTAINER */
+.wrap {
+  position: relative;
+  z-index: 10;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
 
-  /* INCLUDES */
-  .incs{display:flex;flex-direction:column;gap:4px}
-  .inc{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:7px}
-  .inc::before{content:'✓';color:var(--green);font-weight:800;font-size:11px;flex-shrink:0}
+/* ═══ HERO ═══ */
+.hero {
+  padding: 60px 20px 40px;
+  text-align: center;
+  position: relative;
+  z-index: 10;
+}
 
-  /* PRICE */
-  .cp{
-    padding:16px 24px;border-top:1px solid var(--border);
-    display:flex;align-items:center;justify-content:space-between;
-    background:rgba(255,255,255,.015);position:relative;overflow:hidden
-  }
-  .cp::before{
-    content:'';position:absolute;top:0;left:0;right:0;height:1px;
-    background:linear-gradient(90deg,transparent,var(--cc),transparent);
-    opacity:0;transition:opacity .3s
-  }
-  .card:hover .cp::before{opacity:1}
-  .pl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
-  .pv{font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--cc);letter-spacing:1px;line-height:1}
+.hero-eyebrow {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  color: var(--cyan);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  opacity: 0;
+  animation: fadeIn 0.6s 0.2s forwards;
+}
+.hero-eyebrow span { color: var(--muted); }
 
-  /* FOOTER */
-  .footer{text-align:center;padding:40px 24px;border-top:1px solid var(--border);color:var(--muted);font-size:13px;line-height:1.9;position:relative;z-index:1}
-  .footer a{color:var(--yellow);text-decoration:none;font-weight:700;transition:color .2s}
-  .footer a:hover{color:#fff}
+.glitch-wrap {
+  position: relative;
+  display: inline-block;
+  opacity: 0;
+  animation: fadeIn 0.6s 0.4s forwards;
+}
 
-  /* ANIMATIONS */
-  @keyframes up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-  .reveal{opacity:0;transform:translateY(30px);transition:opacity .6s ease,transform .6s ease}
-  .reveal.active{opacity:1;transform:translateY(0)}
+.hero-title {
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(36px, 8vw, 80px);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -1px;
+  color: #fff;
+  text-shadow: 0 0 30px rgba(0,245,255,0.3);
+}
+.hero-title .accent { color: var(--cyan); display: block; }
 
-  /* MOBILE */
-  @media(max-width:600px){
-    .hero{padding:36px 16px 22px}
-    .grid{padding:16px 16px 60px;gap:12px}
-    .cb,.ch{padding-left:16px;padding-right:16px}
-    .cp{padding:14px 16px}
-    #glow{display:none}
-  }
+.glitch-wrap:hover .hero-title {
+  animation: glitch 0.3s steps(2) infinite;
+}
+
+.hero-sub {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 13px;
+  color: var(--muted);
+  letter-spacing: 2px;
+  margin-top: 16px;
+  opacity: 0;
+  animation: fadeIn 0.6s 0.6s forwards;
+}
+
+.hero-line {
+  width: 100%;
+  max-width: 600px;
+  margin: 28px auto 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+  opacity: 0;
+  animation: fadeIn 0.6s 0.8s forwards;
+}
+
+/* ═══ CARDS ═══ */
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px 20px 60px;
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 10;
+}
+
+.card {
+  position: relative;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface);
+  overflow: hidden;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  opacity: 0;
+  animation: slideUp 0.5s ease forwards;
+}
+
+.card:nth-child(1) { animation-delay: 0.3s; --cc: var(--green); }
+.card:nth-child(2) { animation-delay: 0.4s; --cc: var(--cyan); }
+.card:nth-child(3) { animation-delay: 0.5s; --cc: var(--yellow); }
+.card:nth-child(4) { animation-delay: 0.6s; --cc: var(--orange); }
+.card:nth-child(5) { animation-delay: 0.7s; --cc: var(--pink); }
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--cc);
+  box-shadow: 0 0 16px var(--cc);
+}
+
+.card:hover {
+  border-color: var(--cc);
+  box-shadow: 0 0 30px rgba(0,0,0,0.8), inset 0 0 40px rgba(0,0,0,0.5);
+}
+
+/* CARD HEADER — always visible */
+.card-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 20px;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+}
+
+.card-head::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(255,255,255,0.015) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.card-num {
+  font-family: 'Orbitron', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--cc);
+  opacity: 0.6;
+  min-width: 28px;
+  letter-spacing: 1px;
+}
+
+.card-name {
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(16px, 3vw, 22px);
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 1px;
+  flex: 1;
+}
+
+.card-short {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.card-fps {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  color: var(--cc);
+  letter-spacing: 1px;
+  opacity: 0.8;
+}
+
+.card-price {
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(18px, 3.5vw, 26px);
+  font-weight: 900;
+  color: var(--cc);
+  text-shadow: 0 0 12px var(--cc);
+  letter-spacing: 0px;
+}
+
+.card-chips {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.chip {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  padding: 3px 7px;
+  border: 1px solid var(--cc);
+  border-radius: 2px;
+  color: var(--cc);
+  opacity: 0.7;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.toggle-btn {
+  width: 28px; height: 28px;
+  border: 1px solid var(--cc);
+  border-radius: 2px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--cc);
+  font-size: 14px;
+  flex-shrink: 0;
+  transition: background 0.2s, box-shadow 0.2s;
+  opacity: 0.7;
+}
+.card.open .toggle-btn {
+  background: var(--cc);
+  color: #000;
+  box-shadow: 0 0 10px var(--cc);
+  opacity: 1;
+}
+
+.toggle-icon { transition: transform 0.3s; display: block; line-height: 1; }
+.card.open .toggle-icon { transform: rotate(45deg); }
+
+/* CARD BODY — expandable */
+.card-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s cubic-bezier(0.4,0,0.2,1);
+}
+.card.open .card-body { max-height: 1200px; }
+
+.card-inner {
+  padding: 0 20px 24px;
+  border-top: 1px solid var(--border);
+}
+
+/* SPECS GRID */
+.specs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin: 16px 0;
+}
+
+@media(max-width: 540px) { .specs-grid { grid-template-columns: 1fr; } }
+
+.spec {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 3px;
+  transition: border-color 0.2s, background 0.2s;
+}
+.spec:hover {
+  border-color: rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.03);
+}
+
+.spec-ico { font-size: 13px; flex-shrink: 0; margin-top: 2px; }
+.spec-lbl {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  color: var(--muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+.spec-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: #d0e0f0;
+  line-height: 1.4;
+}
+.spec-desc { font-size: 10px; color: var(--muted); line-height: 1.4; margin-top: 1px; }
+
+/* GAMES */
+.games-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin: 12px 0;
+}
+.game-tag {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  padding: 3px 8px;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 2px;
+  color: var(--text);
+  background: rgba(255,255,255,0.02);
+}
+
+/* INCLUDES */
+.includes-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+.inc {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.inc::before { content: '✓'; color: var(--green); font-weight: 700; }
+
+.section-lbl {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  color: var(--muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  margin-top: 14px;
+}
+
+/* HIT BADGE */
+.hit-badge {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 2px 7px;
+  background: var(--cyan);
+  color: #000;
+  border-radius: 2px;
+}
+
+/* ═══ FOOTER ═══ */
+.footer {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  padding: 40px 20px 50px;
+  border-top: 1px solid var(--border);
+}
+
+.footer-line {
+  width: 200px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+  margin: 0 auto 24px;
+}
+
+.footer-cta {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 1px;
+  margin-bottom: 16px;
+}
+
+.tg-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Orbitron', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #000;
+  background: var(--cyan);
+  padding: 14px 32px;
+  border-radius: 3px;
+  text-decoration: none;
+  transition: box-shadow 0.3s, transform 0.2s;
+  box-shadow: 0 0 20px rgba(0,245,255,0.4);
+}
+.tg-btn:hover {
+  box-shadow: 0 0 40px rgba(0,245,255,0.7);
+  transform: translateY(-2px);
+}
+
+.footer-note {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 20px;
+  letter-spacing: 0.5px;
+  line-height: 1.8;
+}
+.footer-note span { color: var(--cyan); }
+
+/* ═══ ANIMATIONS ═══ */
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
+@keyframes slideUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+@keyframes glitch {
+  0%   { text-shadow: 2px 0 var(--cyan), -2px 0 var(--pink); }
+  25%  { text-shadow: -2px 0 var(--cyan), 2px 0 var(--pink); clip-path: inset(20% 0 60% 0); }
+  50%  { text-shadow: 2px 0 var(--pink), -2px 0 var(--cyan); }
+  75%  { text-shadow: -2px 0 var(--pink), 2px 0 var(--cyan); clip-path: inset(70% 0 10% 0); }
+  100% { text-shadow: 2px 0 var(--cyan), -2px 0 var(--pink); clip-path: none; }
+}
+
+@keyframes flicker {
+  0%, 97%, 100% { opacity: 1; }
+  98% { opacity: 0.6; }
+  99% { opacity: 0.9; }
+}
+
+/* FLICKER on load */
+.hero { animation: flicker 6s infinite; }
+
+/* MOBILE */
+@media(max-width:600px) {
+  .card-chips { display: none; }
+  .hero { padding: 40px 16px 28px; }
+}
 </style>
 </head>
 <body>
 
-<div id="glow"></div>
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="ring"></div>
+<div class="bg-grid"></div>
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<div class="orb orb3"></div>
 
+<!-- ═══ HERO ═══ -->
 <div class="hero">
-  <div class="hero-pill">⚡ Сборки ПК на заказ · Челябинск</div>
-  <h1>ИГРОВЫЕ<span>СБОРКИ</span></h1>
-  <p>Собираю под ключ — тестирую перед выдачей. Гарантия на работу сборки включена.</p>
+  <div class="wrap">
+    <div class="hero-eyebrow">NIZAMOV.TECH <span>// ЧЕЛЯБИНСК //</span> 2026</div>
+    <div class="glitch-wrap">
+      <div class="hero-title">СОБИРАЮ ПК<span class="accent">НА ЗАКАЗ</span></div>
+    </div>
+    <div class="hero-sub">ЗАВОД → IT → ТЕПЕРЬ ЕЩЁ И ЖЕЛЕЗО РУКАМИ</div>
+    <div class="hero-line"></div>
+  </div>
 </div>
 
-<div class="grid">
+<!-- ═══ CARDS ═══ -->
+<div class="cards">
 
-<!-- ═══════════════ УЛЬТРАБЮДЖЕТНАЯ ═══════════════ -->
-<div class="card c1 reveal" data-tilt>
-  <div class="ch">
-    <div class="tier">Ультрабюджетная</div>
-    <div class="cname">СТАРТ</div>
-    <div class="ctag">Первый игровой ПК — ААА-игры прошлых лет на средних настройках</div>
-  </div>
-  <div class="fps">
-    <div class="fi"><div class="fr">1080p</div><div class="fv">60+</div><div class="fs">FPS средние</div></div>
-    <div class="fi"><div class="fr">Настройки</div><div class="fv">MED</div><div class="fs">графика</div></div>
-    <div class="fi"><div class="fr">VRAM</div><div class="fv">6 ГБ</div><div class="fs">GDDR6</div></div>
-  </div>
-  <div class="cb">
-    <div class="sec-lbl">Комплектующие</div>
-    <div class="specs">
-      <div class="spec"><div class="si">🧠</div><div><div class="sl">Процессор</div><div class="sn">AMD Ryzen 5 3600 OEM</div><div class="sd">6 ядер / 12 потоков, до 4.2 ГГц, 7 нм, TDP 65 Вт</div></div></div>
-      <div class="spec"><div class="si">🎮</div><div><div class="sl">Видеокарта</div><div class="sn">MSI GeForce RTX 3050 VENTUS 2X E 6G OC</div><div class="sd">6 ГБ GDDR6, заводской разгон, 2× кулер, гарантия 3 года</div></div></div>
-      <div class="spec"><div class="si">🔌</div><div><div class="sl">Материнская плата</div><div class="sn">GIGABYTE B550M K (mATX, AM4)</div><div class="sd">4 слота RAM, M.2 NVMe, современный BIOS</div></div></div>
-      <div class="spec"><div class="si">💾</div><div><div class="sl">Оперативная память</div><div class="sn">8 ГБ DDR4 3200 МГц — ADATA XPG GAMMIX D35</div><div class="sd">Можно докинуть вторую планку позже для апгрейда</div></div></div>
-      <div class="spec"><div class="si">💿</div><div><div class="sl">Накопитель</div><div class="sn">512 ГБ NVMe PCIe 3.0 — ADATA Legend 710</div><div class="sd">2400 МБ/с, гарантия 3 года, быстрая загрузка ОС</div></div></div>
-      <div class="spec"><div class="si">⚡</div><div><div class="sl">Блок питания</div><div class="sn">DeepCool PF550 — 550 Вт, 80+ Bronze</div><div class="sd">Тихий, с запасом под апгрейд видеокарты</div></div></div>
-      <div class="spec"><div class="si">🌀</div><div><div class="sl">Охлаждение CPU</div><div class="sn">ID-COOLING SE-903-XT BASIC</div><div class="sd">Башня 130 Вт, 92 мм PWM — тихий в простое, 123 мм высота</div></div></div>
-      <div class="spec"><div class="si">📦</div><div><div class="sl">Корпус</div><div class="sn">ExeGate BAA-403 (mATX)</div><div class="sd">Компактный, аккуратный, прорезиненные ножки</div></div></div>
+  <!-- ── 1. СТАРТ ── -->
+  <div class="card" id="c1">
+    <div class="card-head" onclick="toggle('c1')">
+      <div class="card-num">01</div>
+      <div class="card-name">СТАРТ</div>
+      <div class="card-chips">
+        <span class="chip">1080p</span>
+        <span class="chip">60+ FPS</span>
+      </div>
+      <div class="card-short">
+        <div class="card-fps">MEDIUM</div>
+        <div class="card-price">63 000 ₽</div>
+      </div>
+      <div class="toggle-btn"><span class="toggle-icon">+</span></div>
     </div>
-    <div class="sec-lbl">Что потянет</div>
-    <div class="games">
-      <span class="g">CS2</span><span class="g">Dota 2</span><span class="g">GTA V</span><span class="g">Minecraft</span><span class="g">Fortnite</span><span class="g">The Witcher 3</span><span class="g">FIFA / EA FC</span><span class="g">ААА-игры 2020–2022</span>
-    </div>
-    <div class="sec-lbl">В стоимость входит</div>
-    <div class="incs">
-      <div class="inc">Сборка + аккуратный кабель-менеджмент</div>
-      <div class="inc">Установка Windows 11</div>
-      <div class="inc">Все драйверы и обновления</div>
-      <div class="inc">Стресс-тест стабильности перед выдачей</div>
-      <div class="inc">Гарантия на работу сборки — 1 месяц</div>
+    <div class="card-body">
+      <div class="card-inner">
+        <div class="section-lbl">// Комплектующие</div>
+        <div class="specs-grid">
+          <div class="spec"><div class="spec-ico">🧠</div><div><div class="spec-lbl">Процессор</div><div class="spec-name">AMD Ryzen 5 3600 OEM</div><div class="spec-desc">6 ядер / 12 потоков, до 4.2 ГГц</div></div></div>
+          <div class="spec"><div class="spec-ico">🎮</div><div><div class="spec-lbl">Видеокарта</div><div class="spec-name">MSI RTX 3050 VENTUS 2X E 6G OC</div><div class="spec-desc">6 ГБ GDDR6, заводской разгон</div></div></div>
+          <div class="spec"><div class="spec-ico">🔌</div><div><div class="spec-lbl">Материнская плата</div><div class="spec-name">GIGABYTE B550M K (mATX, AM4)</div><div class="spec-desc">M.2 NVMe, 4 слота RAM</div></div></div>
+          <div class="spec"><div class="spec-ico">💾</div><div><div class="spec-lbl">Оперативная память</div><div class="spec-name">8 ГБ DDR4 3200 МГц ADATA XPG</div><div class="spec-desc">Можно докинуть планку позже</div></div></div>
+          <div class="spec"><div class="spec-ico">💿</div><div><div class="spec-lbl">Накопитель</div><div class="spec-name">512 ГБ NVMe — ADATA Legend 710</div><div class="spec-desc">2400 МБ/с, Windows за 5 сек</div></div></div>
+          <div class="spec"><div class="spec-ico">⚡</div><div><div class="spec-lbl">Блок питания</div><div class="spec-name">DeepCool PF550 — 550 Вт, Bronze</div><div class="spec-desc">Запас под апгрейд</div></div></div>
+          <div class="spec"><div class="spec-ico">🌀</div><div><div class="spec-lbl">Охлаждение CPU</div><div class="spec-name">ID-COOLING SE-903-XT BASIC</div><div class="spec-desc">Башня 130 Вт, 92 мм PWM</div></div></div>
+          <div class="spec"><div class="spec-ico">📦</div><div><div class="spec-lbl">Корпус</div><div class="spec-name">ExeGate BAA-403 (mATX)</div><div class="spec-desc">Компактный, аккуратный</div></div></div>
+        </div>
+        <div class="section-lbl">// Что потянет</div>
+        <div class="games-row">
+          <span class="game-tag">CS2</span><span class="game-tag">Dota 2</span><span class="game-tag">GTA V</span>
+          <span class="game-tag">Minecraft</span><span class="game-tag">Fortnite</span><span class="game-tag">The Witcher 3</span>
+          <span class="game-tag">FIFA / EA FC</span><span class="game-tag">ААА-игры 2020–2022</span>
+        </div>
+        <div class="includes-row">
+          <span class="inc">Сборка</span>
+          <span class="inc">Windows 11</span>
+          <span class="inc">Все драйверы</span>
+          <span class="inc">Стресс-тест</span>
+          <span class="inc">Гарантия 1 мес.</span>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="cp"><div class="pl">Цена под ключ</div><div class="pv">63 000 ₽</div></div>
+
+  <!-- ── 2. НАРОДНАЯ ── -->
+  <div class="card" id="c2">
+    <div class="card-head" onclick="toggle('c2')">
+      <div class="card-num">02</div>
+      <div class="card-name">НАРОДНАЯ <span class="hit-badge">ХИТ</span></div>
+      <div class="card-chips">
+        <span class="chip">1080p</span>
+        <span class="chip">100+ FPS</span>
+      </div>
+      <div class="card-short">
+        <div class="card-fps">HIGH</div>
+        <div class="card-price">89 000 ₽</div>
+      </div>
+      <div class="toggle-btn"><span class="toggle-icon">+</span></div>
+    </div>
+    <div class="card-body">
+      <div class="card-inner">
+        <div class="section-lbl">// Комплектующие</div>
+        <div class="specs-grid">
+          <div class="spec"><div class="spec-ico">🧠</div><div><div class="spec-lbl">Процессор</div><div class="spec-name">AMD Ryzen 5 5600 OEM</div><div class="spec-desc">6 ядер / 12 потоков, до 4.4 ГГц</div></div></div>
+          <div class="spec"><div class="spec-ico">🎮</div><div><div class="spec-lbl">Видеокарта</div><div class="spec-name">Sapphire RX 7600 Pulse OC 8 ГБ</div><div class="spec-desc">GDDR6, тихая — лучшая в классе</div></div></div>
+          <div class="spec"><div class="spec-ico">🔌</div><div><div class="spec-lbl">Материнская плата</div><div class="spec-name">ASUS PRIME B550M-K (mATX, AM4)</div><div class="spec-desc">PCIe 4.0 M.2, удобный BIOS</div></div></div>
+          <div class="spec"><div class="spec-ico">💾</div><div><div class="spec-lbl">Оперативная память</div><div class="spec-name">16 ГБ DDR4 3200 МГц (2×8) Netac</div><div class="spec-desc">Dual channel, XMP профиль</div></div></div>
+          <div class="spec"><div class="spec-ico">💿</div><div><div class="spec-lbl">Накопитель</div><div class="spec-name">512 ГБ NVMe — Apacer AS2280P4U</div><div class="spec-desc">3500 МБ/с, гарантия 3 года</div></div></div>
+          <div class="spec"><div class="spec-ico">⚡</div><div><div class="spec-lbl">Блок питания</div><div class="spec-name">Zalman ZM600-XEII — 600 Вт, Bronze</div><div class="spec-desc">Запас под апгрейд GPU</div></div></div>
+          <div class="spec"><div class="spec-ico">🌀</div><div><div class="spec-lbl">Охлаждение CPU</div><div class="spec-name">DeepCool AG400</div><div class="spec-desc">4 трубки, 120 мм PWM, 220 Вт</div></div></div>
+          <div class="spec"><div class="spec-ico">📦</div><div><div class="spec-lbl">Корпус</div><div class="spec-name">ACCORD ACC-ZCU2B</div><div class="spec-desc">2 стеклянных панели</div></div></div>
+        </div>
+        <div class="section-lbl">// Что потянет</div>
+        <div class="games-row">
+          <span class="game-tag">CS2 200+ FPS</span><span class="game-tag">Valorant</span><span class="game-tag">GTA V MAX</span>
+          <span class="game-tag">Cyberpunk 2077</span><span class="game-tag">Witcher 3</span>
+          <span class="game-tag">Apex Legends</span><span class="game-tag">Fortnite HIGH</span>
+        </div>
+        <div class="includes-row">
+          <span class="inc">Сборка</span>
+          <span class="inc">Windows 11</span>
+          <span class="inc">Все драйверы</span>
+          <span class="inc">Стресс-тест</span>
+          <span class="inc">Гарантия 1 мес.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 3. ПРО ── -->
+  <div class="card" id="c3">
+    <div class="card-head" onclick="toggle('c3')">
+      <div class="card-num">03</div>
+      <div class="card-name">ПРО</div>
+      <div class="card-chips">
+        <span class="chip">1440p</span>
+        <span class="chip">144+ FPS</span>
+      </div>
+      <div class="card-short">
+        <div class="card-fps">ULTRA</div>
+        <div class="card-price">125 000 ₽</div>
+      </div>
+      <div class="toggle-btn"><span class="toggle-icon">+</span></div>
+    </div>
+    <div class="card-body">
+      <div class="card-inner">
+        <div class="section-lbl">// Комплектующие</div>
+        <div class="specs-grid">
+          <div class="spec"><div class="spec-ico">🧠</div><div><div class="spec-lbl">Процессор</div><div class="spec-name">AMD Ryzen 7 5700X OEM</div><div class="spec-desc">8 ядер / 16 потоков, до 4.6 ГГц</div></div></div>
+          <div class="spec"><div class="spec-ico">🎮</div><div><div class="spec-lbl">Видеокарта</div><div class="spec-name">MSI RTX 5060 Ti 16G SHADOW 2X OC</div><div class="spec-desc">16 ГБ GDDR7, DLSS 4, RT</div></div></div>
+          <div class="spec"><div class="spec-ico">🔌</div><div><div class="spec-lbl">Материнская плата</div><div class="spec-name">MSI B550-A PRO (ATX, AM4)</div><div class="spec-desc">Радиаторы VRM и M.2</div></div></div>
+          <div class="spec"><div class="spec-ico">💾</div><div><div class="spec-lbl">Оперативная память</div><div class="spec-name">16 ГБ DDR4 3200 МГц G.Skill Ripjaws</div><div class="spec-desc">Гарантия 10 лет</div></div></div>
+          <div class="spec"><div class="spec-ico">💿</div><div><div class="spec-lbl">Накопитель</div><div class="spec-name">500 ГБ NVMe PCIe 4.0 — WD SN5100</div><div class="spec-desc">6600 МБ/с — без подгрузок</div></div></div>
+          <div class="spec"><div class="spec-ico">⚡</div><div><div class="spec-lbl">Блок питания</div><div class="spec-name">GamerStorm PF700X — 700 Вт, Gold</div><div class="spec-desc">Тихий под нагрузкой</div></div></div>
+          <div class="spec"><div class="spec-ico">🌀</div><div><div class="spec-lbl">Охлаждение CPU</div><div class="spec-name">DeepCool AG500</div><div class="spec-desc">5 трубок, 240 Вт рассеивания</div></div></div>
+          <div class="spec"><div class="spec-ico">📦</div><div><div class="spec-lbl">Корпус</div><div class="spec-name">Formula Air Power G5 (ATX)</div><div class="spec-desc">Перфорация + фильтр + стекло</div></div></div>
+        </div>
+        <div class="section-lbl">// Что потянет</div>
+        <div class="games-row">
+          <span class="game-tag">GTA 6</span><span class="game-tag">Cyberpunk RT</span><span class="game-tag">Alan Wake 2</span>
+          <span class="game-tag">Red Dead 2</span><span class="game-tag">Hogwarts Legacy</span>
+          <span class="game-tag">Стриминг 1080p</span><span class="game-tag">1440p ULTRA</span>
+        </div>
+        <div class="includes-row">
+          <span class="inc">Сборка</span>
+          <span class="inc">Windows 11</span>
+          <span class="inc">Все драйверы</span>
+          <span class="inc">Стресс-тест</span>
+          <span class="inc">Гарантия 1 мес.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 4. МОНСТР ── -->
+  <div class="card" id="c4">
+    <div class="card-head" onclick="toggle('c4')">
+      <div class="card-num">04</div>
+      <div class="card-name">МОНСТР</div>
+      <div class="card-chips">
+        <span class="chip">4K</span>
+        <span class="chip">144+ FPS</span>
+      </div>
+      <div class="card-short">
+        <div class="card-fps">ALL MAX</div>
+        <div class="card-price">190 000 ₽</div>
+      </div>
+      <div class="toggle-btn"><span class="toggle-icon">+</span></div>
+    </div>
+    <div class="card-body">
+      <div class="card-inner">
+        <div class="section-lbl">// Комплектующие</div>
+        <div class="specs-grid">
+          <div class="spec"><div class="spec-ico">🧠</div><div><div class="spec-lbl">Процессор</div><div class="spec-name">AMD Ryzen 7 7800X3D OEM</div><div class="spec-desc">96 МБ 3D V-Cache — №1 в играх</div></div></div>
+          <div class="spec"><div class="spec-ico">🎮</div><div><div class="spec-lbl">Видеокарта</div><div class="spec-name">Palit RTX 5070 Infinity 3 12 ГБ</div><div class="spec-desc">GDDR7, DLSS 4, 3× кулер</div></div></div>
+          <div class="spec"><div class="spec-ico">🔌</div><div><div class="spec-lbl">Материнская плата</div><div class="spec-name">Gigabyte B650 EAGLE AX (AM5)</div><div class="spec-desc">DDR5, Wi-Fi 6E, PCIe 5.0 M.2</div></div></div>
+          <div class="spec"><div class="spec-ico">💾</div><div><div class="spec-lbl">Оперативная память</div><div class="spec-name">32 ГБ DDR5 6000 МГц Kingston FURY</div><div class="spec-desc">Максимум FPS на AM5</div></div></div>
+          <div class="spec"><div class="spec-ico">💿</div><div><div class="spec-lbl">Накопитель</div><div class="spec-name">1 ТБ NVMe PCIe 4.0 — WD Black SN7100</div><div class="spec-desc">7250 МБ/с, ресурс 600 ТБ</div></div></div>
+          <div class="spec"><div class="spec-ico">⚡</div><div><div class="spec-lbl">Блок питания</div><div class="spec-name">GamerStorm PQ750G — 750 Вт, Gold</div><div class="spec-desc">Полностью модульный</div></div></div>
+          <div class="spec"><div class="spec-ico">🌀</div><div><div class="spec-lbl">Охлаждение CPU</div><div class="spec-name">Thermalright Phantom Spirit 120 SE</div><div class="spec-desc">Двухбашенный, 2× 120 мм</div></div></div>
+          <div class="spec"><div class="spec-ico">📦</div><div><div class="spec-lbl">Корпус</div><div class="spec-name">ACCORD ACC-3338 (ATX)</div><div class="spec-desc">Перфофронт + стекло + кожух БП</div></div></div>
+        </div>
+        <div class="section-lbl">// Что потянет</div>
+        <div class="games-row">
+          <span class="game-tag">Любая игра 2026</span><span class="game-tag">4K Gaming</span>
+          <span class="game-tag">VR</span><span class="game-tag">Видеомонтаж 4K</span>
+          <span class="game-tag">Blender / 3D</span><span class="game-tag">Стриминг 1440p</span>
+        </div>
+        <div class="includes-row">
+          <span class="inc">Сборка</span>
+          <span class="inc">Windows 11</span>
+          <span class="inc">Все драйверы</span>
+          <span class="inc">Стресс-тест</span>
+          <span class="inc">Гарантия 1 мес.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 5. ПЕРЕУСТАНОВКА ── -->
+  <div class="card" id="c5">
+    <div class="card-head" onclick="toggle('c5')">
+      <div class="card-num">05</div>
+      <div class="card-name">ПЕРЕУСТАНОВКА WINDOWS</div>
+      <div class="card-chips">
+        <span class="chip">ВЫЕЗД</span>
+        <span class="chip">НА ДОМ</span>
+      </div>
+      <div class="card-short">
+        <div class="card-fps">ПОД КЛЮЧ</div>
+        <div class="card-price">1 500 ₽</div>
+      </div>
+      <div class="toggle-btn"><span class="toggle-icon">+</span></div>
+    </div>
+    <div class="card-body">
+      <div class="card-inner">
+        <div class="section-lbl">// Что входит</div>
+        <div class="specs-grid">
+          <div class="spec"><div class="spec-ico">💿</div><div><div class="spec-lbl">Установка</div><div class="spec-name">Чистая Windows 11 / 10</div><div class="spec-desc">Лицензионная или с твоим ключом</div></div></div>
+          <div class="spec"><div class="spec-ico">🔧</div><div><div class="spec-lbl">Драйверы</div><div class="spec-name">Все драйверы под твоё железо</div><div class="spec-desc">Видеокарта, звук, сеть, чипсет</div></div></div>
+          <div class="spec"><div class="spec-ico">🛡️</div><div><div class="spec-lbl">Настройка</div><div class="spec-name">Базовая настройка системы</div><div class="spec-desc">Отключение лишнего, автозапуск</div></div></div>
+          <div class="spec"><div class="spec-ico">🚗</div><div><div class="spec-lbl">Выезд</div><div class="spec-name">Приеду к тебе домой</div><div class="spec-desc">Выезд включён в стоимость</div></div></div>
+        </div>
+        <div class="includes-row">
+          <span class="inc">Выезд на дом</span>
+          <span class="inc">Чистая установка ОС</span>
+          <span class="inc">Все драйверы</span>
+          <span class="inc">Базовая настройка</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
-<!-- ═══════════════ БЮДЖЕТНАЯ ═══════════════ -->
-<div class="card c2 reveal" data-tilt>
-  <div class="ch">
-    <div class="hit">ХИТ</div>
-    <div class="tier">Бюджетная</div>
-    <div class="cname">НАРОДНАЯ</div>
-    <div class="ctag">1080p высокие настройки — запас на 2–3 года</div>
+<!-- ═══ FOOTER ═══ -->
+<div class="footer">
+  <div class="footer-line"></div>
+  <div class="footer-cta">// ДРУГОЙ БЮДЖЕТ? ОСОБЫЕ ТРЕБОВАНИЯ? ПИШИ //</div>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+    <a class="tg-btn" href="tel:+79911745113" style="background:var(--green);box-shadow:0 0 20px rgba(0,255,136,0.4);">
+      📞 8 991 174-51-13
+    </a>
+    <a class="tg-btn" href="https://t.me/+y8tNBiyOo-NkNWZi" style="background:transparent;color:var(--cyan);border:1px solid var(--cyan);box-shadow:0 0 20px rgba(0,245,255,0.2);">
+      ✈️ TELEGRAM
+    </a>
   </div>
-  <div class="fps">
-    <div class="fi"><div class="fr">1080p</div><div class="fv">100+</div><div class="fs">FPS</div></div>
-    <div class="fi"><div class="fr">Настройки</div><div class="fv">HIGH</div><div class="fs">графика</div></div>
-    <div class="fi"><div class="fr">VRAM</div><div class="fv">8 ГБ</div><div class="fs">GDDR6</div></div>
+  <div class="footer-note">
+    <span id="price-date"></span><br>
+    Цены на комплектующие меняются — уточняй перед заказом.
   </div>
-  <div class="cb">
-    <div class="sec-lbl">Комплектующие</div>
-    <div class="specs">
-      <div class="spec"><div class="si">🧠</div><div><div class="sl">Процессор</div><div class="sn">AMD Ryzen 5 5600 OEM</div><div class="sd">6 ядер / 12 потоков, до 4.4 ГГц, 7 нм — не тормозит ни в одной игре</div></div></div>
-      <div class="spec"><div class="si">🎮</div><div><div class="sl">Видеокарта</div><div class="sn">Sapphire Radeon RX 7600 Pulse OC 8 ГБ GDDR6</div><div class="sd">2× кулер, тихая, стабильные HIGH в 1080p — лучшая в своём классе</div></div></div>
-      <div class="spec"><div class="si">🔌</div><div><div class="sl">Материнская плата</div><div class="sn">ASUS PRIME B550M-K (mATX, AM4)</div><div class="sd">PCIe 4.0 M.2, 4 слота RAM, удобный BIOS</div></div></div>
-      <div class="spec"><div class="si">💾</div><div><div class="sl">Оперативная память</div><div class="sn">16 ГБ DDR4 3200 МГц (2×8 ГБ) Netac Shadow S White</div><div class="sd">Dual channel, XMP профиль — без узких мест в играх</div></div></div>
-      <div class="spec"><div class="si">💿</div><div><div class="sl">Накопитель</div><div class="sn">512 ГБ NVMe PCIe 3.0 — Apacer AS2280P4U Pro</div><div class="sd">3500 МБ/с, гарантия 3 года, ресурс 350 ТБ</div></div></div>
-      <div class="spec"><div class="si">⚡</div><div><div class="sl">Блок питания</div><div class="sn">Zalman Wattbit II ZM600-XEII — 600 Вт, 80+ Bronze</div><div class="sd">С запасом под апгрейд видеокарты следующего поколения</div></div></div>
-      <div class="spec"><div class="si">🌀</div><div><div class="sl">Охлаждение CPU</div><div class="sn">DeepCool AG400</div><div class="sd">4 тепловые трубки прямого контакта, 120 мм PWM, рассеивает 220 Вт</div></div></div>
-      <div class="spec"><div class="si">📦</div><div><div class="sl">Корпус</div><div class="sn">ACCORD ACC-ZCU2B</div><div class="sd">2 стеклянные панели, боковая снимается без инструментов</div></div></div>
-    </div>
-    <div class="sec-lbl">Что потянет</div>
-    <div class="games">
-      <span class="g">CS2 200+ FPS</span><span class="g">Valorant</span><span class="g">GTA V MAX</span><span class="g">Cyberpunk 2077</span><span class="g">The Witcher 3</span><span class="g">Apex Legends</span><span class="g">Fortnite HIGH</span><span class="g">FIFA / EA FC</span>
-    </div>
-    <div class="sec-lbl">В стоимость входит</div>
-    <div class="incs">
-      <div class="inc">Сборка + аккуратный кабель-менеджмент</div>
-      <div class="inc">Установка Windows 11</div>
-      <div class="inc">Все драйверы и обновления</div>
-      <div class="inc">Стресс-тест стабильности перед выдачей</div>
-      <div class="inc">Гарантия на работу сборки — 1 месяц</div>
-    </div>
-  </div>
-  <div class="cp"><div class="pl">Цена под ключ</div><div class="pv">89 000 ₽</div></div>
-</div>
-
-<!-- ═══════════════ ОПТИМАЛЬНАЯ ═══════════════ -->
-<div class="card c3 reveal" data-tilt>
-  <div class="ch">
-    <div class="tier">Оптимальная</div>
-    <div class="cname">ПРО</div>
-    <div class="ctag">1440p максимум — стриминг, запас на 4–5 лет</div>
-  </div>
-  <div class="fps">
-    <div class="fi"><div class="fr">1080p</div><div class="fv">144+</div><div class="fs">FPS</div></div>
-    <div class="fi"><div class="fr">1440p</div><div class="fv">80+</div><div class="fs">FPS</div></div>
-    <div class="fi"><div class="fr">VRAM</div><div class="fv">16 ГБ</div><div class="fs">GDDR7</div></div>
-  </div>
-  <div class="cb">
-    <div class="sec-lbl">Комплектующие</div>
-    <div class="specs">
-      <div class="spec"><div class="si">🧠</div><div><div class="sl">Процессор</div><div class="sn">AMD Ryzen 7 5700X OEM</div><div class="sd">8 ядер / 16 потоков, до 4.6 ГГц — идеален для стриминга и тяжёлых игр</div></div></div>
-      <div class="spec"><div class="si">🎮</div><div><div class="sl">Видеокарта</div><div class="sn">MSI RTX 5060 Ti 16G SHADOW 2X OC Plus</div><div class="sd">16 ГБ GDDR7, DLSS 4, трассировка лучей — топ своего класса 2025–2026</div></div></div>
-      <div class="spec"><div class="si">🔌</div><div><div class="sl">Материнская плата</div><div class="sn">MSI B550-A PRO (ATX, AM4)</div><div class="sd">Радиаторы на VRM и M.2, усиленный PCIe слот, без RGB — всё серьёзно</div></div></div>
-      <div class="spec"><div class="si">💾</div><div><div class="sl">Оперативная память</div><div class="sn">16 ГБ DDR4 3200 МГц (2×8 ГБ) G.Skill Ripjaws V</div><div class="sd">Проверенный бренд, XMP, у части продавцов — гарантия 10 лет</div></div></div>
-      <div class="spec"><div class="si">💿</div><div><div class="sl">Накопитель</div><div class="sn">500 ГБ NVMe PCIe 4.0 — WD Blue SN5100</div><div class="sd">6600 МБ/с чтение — текстуры в открытых мирах без подгрузок</div></div></div>
-      <div class="spec"><div class="si">⚡</div><div><div class="sl">Блок питания</div><div class="sn">GamerStorm PF700X — 700 Вт, 80+ Gold</div><div class="sd">Gold сертификат — экономичный и тихий под нагрузкой</div></div></div>
-      <div class="spec"><div class="si">🌀</div><div><div class="sl">Охлаждение CPU</div><div class="sn">DeepCool AG500</div><div class="sd">5 тепловых трубок прямого контакта, рассеивает 240 Вт — процессор всегда холодный</div></div></div>
-      <div class="spec"><div class="si">📦</div><div><div class="sl">Корпус</div><div class="sn">Formula Air Power G5 (ATX)</div><div class="sd">Перфорированная панель с фильтром, стекло — отличный продув</div></div></div>
-    </div>
-    <div class="sec-lbl">Что потянет</div>
-    <div class="games">
-      <span class="g">GTA 6</span><span class="g">Cyberpunk 2077 RT</span><span class="g">Alan Wake 2</span><span class="g">Red Dead 2</span><span class="g">Hogwarts Legacy</span><span class="g">Стриминг 1080p</span><span class="g">1440p HIGH/ULTRA</span>
-    </div>
-    <div class="sec-lbl">В стоимость входит</div>
-    <div class="incs">
-      <div class="inc">Сборка + аккуратный кабель-менеджмент</div>
-      <div class="inc">Установка Windows 11</div>
-      <div class="inc">Все драйверы и обновления</div>
-      <div class="inc">Стресс-тест стабильности перед выдачей</div>
-      <div class="inc">Гарантия на работу сборки — 1 месяц</div>
-    </div>
-  </div>
-  <div class="cp"><div class="pl">Цена под ключ</div><div class="pv">125 000 ₽</div></div>
-</div>
-
-<!-- ═══════════════ ТОПОВАЯ ═══════════════ -->
-<div class="card c4 reveal" data-tilt>
-  <div class="ch">
-    <div class="tier">Топовая</div>
-    <div class="cname">МОНСТР</div>
-    <div class="ctag">1440p / 4K без компромиссов — всё на максимум</div>
-  </div>
-  <div class="fps">
-    <div class="fi"><div class="fr">1440p</div><div class="fv">144+</div><div class="fs">FPS MAX</div></div>
-    <div class="fi"><div class="fr">4K</div><div class="fv">60+</div><div class="fs">FPS</div></div>
-    <div class="fi"><div class="fr">VRAM</div><div class="fv">12 ГБ</div><div class="fs">GDDR7</div></div>
-  </div>
-  <div class="cb">
-    <div class="sec-lbl">Комплектующие</div>
-    <div class="specs">
-      <div class="spec"><div class="si">🧠</div><div><div class="sl">Процессор</div><div class="sn">AMD Ryzen 7 7800X3D OEM</div><div class="sd">8 ядер, 96 МБ 3D V-Cache, до 5 ГГц — лучший игровой CPU в мире 2024–2026</div></div></div>
-      <div class="spec"><div class="si">🎮</div><div><div class="sl">Видеокарта</div><div class="sn">Palit GeForce RTX 5070 Infinity 3 12 ГБ GDDR7</div><div class="sd">3× кулер, DLSS 4, трассировка — флагман среднего сегмента 2026</div></div></div>
-      <div class="spec"><div class="si">🔌</div><div><div class="sl">Материнская плата</div><div class="sn">Gigabyte B650 EAGLE AX (ATX, AM5)</div><div class="sd">DDR5, Wi-Fi 6E встроенный, PCIe 5.0 M.2, радиаторы на VRM</div></div></div>
-      <div class="spec"><div class="si">💾</div><div><div class="sl">Оперативная память</div><div class="sn">32 ГБ DDR5 6000 МГц (2×16 ГБ) Kingston FURY Beast</div><div class="sd">Оптимальная частота для AM5 — максимум FPS в играх</div></div></div>
-      <div class="spec"><div class="si">💿</div><div><div class="sl">Накопитель</div><div class="sn">1 ТБ NVMe PCIe 4.0 — WD Black SN7100</div><div class="sd">7250 МБ/с — один из быстрейших на рынке, ресурс 600 ТБ</div></div></div>
-      <div class="spec"><div class="si">⚡</div><div><div class="sl">Блок питания</div><div class="sn">GamerStorm PQ750G — 750 Вт, 80+ Gold, модульный</div><div class="sd">Полностью модульный — лёгкий кабель-менеджмент, запас под апгрейд</div></div></div>
-      <div class="spec"><div class="si">🌀</div><div><div class="sl">Охлаждение CPU</div><div class="sn">Thermalright Phantom Spirit 120 SE</div><div class="sd">Двухбашенный, 2× 120 мм, 154 мм высота — тихий и мощный</div></div></div>
-      <div class="spec"><div class="si">📦</div><div><div class="sl">Корпус</div><div class="sn">ACCORD ACC-3338 (ATX)</div><div class="sd">Перфорированный фронт с фильтром, стекло, кожух БП, прорезиненные ножки</div></div></div>
-    </div>
-    <div class="sec-lbl">Что потянет</div>
-    <div class="games">
-      <span class="g">Любая игра 2026</span><span class="g">4K Gaming</span><span class="g">VR</span><span class="g">Видеомонтаж 4K</span><span class="g">Blender / 3D</span><span class="g">Стриминг 1440p</span>
-    </div>
-    <div class="sec-lbl">В стоимость входит</div>
-    <div class="incs">
-      <div class="inc">Сборка + аккуратный кабель-менеджмент</div>
-      <div class="inc">Установка Windows 11</div>
-      <div class="inc">Все драйверы и обновления</div>
-      <div class="inc">Стресс-тест стабильности перед выдачей</div>
-      <div class="inc">Гарантия на работу сборки — 1 месяц</div>
-    </div>
-  </div>
-  <div class="cp"><div class="pl">Цена под ключ</div><div class="pv">190 000 ₽</div></div>
-</div>
-
-</div>
-
-<div class="footer reveal">
-  Нужен другой бюджет или особые пожелания? Напиши — подберу индивидуально.<br><br>
-  <a href="https://t.me/pk_chel74">📲 Написать в Telegram</a>
-  <br><br>
-  <span id="price-date" style="font-size:12px;color:var(--muted);"></span>
-  <script>
-    const d = new Date();
-    const months = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
-    document.getElementById('price-date').textContent = '📅 Цены актуальны на ' + d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear() + ' г. · Цены на комплектующие меняются — уточняй перед заказом.';
-  </script>
 </div>
 
 <script>
-  // ✨ Mouse Glow
-  const glow = document.getElementById('glow');
-  let glowX = 0, glowY = 0, targetX = 0, targetY = 0;
-  
-  document.addEventListener('mousemove', e => {
-    targetX = e.clientX; targetY = e.clientY;
+// Cursor
+const cur = document.getElementById('cur');
+const ring = document.getElementById('ring');
+document.addEventListener('mousemove', e => {
+  cur.style.left = e.clientX + 'px';
+  cur.style.top = e.clientY + 'px';
+  setTimeout(() => {
+    ring.style.left = e.clientX + 'px';
+    ring.style.top = e.clientY + 'px';
+  }, 80);
+});
+document.querySelectorAll('a, .card-head, .toggle-btn').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    ring.style.width = '48px';
+    ring.style.height = '48px';
   });
-  
-  function animateGlow() {
-    glowX += (targetX - glowX) * 0.1;
-    glowY += (targetY - glowY) * 0.1;
-    glow.style.left = glowX + 'px';
-    glow.style.top = glowY + 'px';
-    requestAnimationFrame(animateGlow);
-  }
-  
-  // 🎴 3D Tilt Effect
-  document.querySelectorAll('[data-tilt]').forEach(card => {
-    card.addEventListener('mousemove', e => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-      const rotateX = (y - centerY) / 20;
-      const rotateY = (centerX - x) / 20;
-      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02,1.02,1.02)`;
-    });
-    card.addEventListener('mouseleave', () => {
-      card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1,1,1)';
-    });
+  el.addEventListener('mouseleave', () => {
+    ring.style.width = '28px';
+    ring.style.height = '28px';
   });
-  
-  // 💫 Scroll Reveal
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('active');
-      }
-    });
-  }, { threshold: 0.1 });
-  
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-  
-  // 🚀 Init
-  window.addEventListener('load', () => {
-    document.body.classList.add('loaded');
-    animateGlow();
-  });
+});
+
+// Toggle cards
+function toggle(id) {
+  const card = document.getElementById(id);
+  const wasOpen = card.classList.contains('open');
+  card.classList.toggle('open', !wasOpen);
+}
+
+// Date
+const d = new Date();
+const m = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+document.getElementById('price-date').textContent = '📅 Цены актуальны на ' + d.getDate() + ' ' + m[d.getMonth()] + ' ' + d.getFullYear() + ' г.';
 </script>
 </body>
 </html>
