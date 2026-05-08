@@ -1383,26 +1383,11 @@ async function sendForm() {
   btn.disabled = true;
   btn.textContent = 'Отправляем...';
 
-  const BOT = '8571955116:AAFZ-LEy47uoj_HU5NRC4pyKFS3dp6ee58Q';
-  const CHAT = '-1003708943418';
-
-  const text = [
-    '🖥️ <b>Новая заявка — BYTELAB</b>',
-    '',
-    `👤 <b>Имя:</b> ${name}`,
-    `📞 <b>Телефон:</b> ${phone}`,
-    `🔧 <b>Тип:</b> ${type}`,
-    `💰 <b>Бюджет:</b> ${budget}`,
-    comment ? `💬 <b>Комментарий:</b> ${comment}` : '',
-    '',
-    `🌐 sborkapc74.vercel.app`
-  ].filter(Boolean).join('\n');
-
   try {
-    const res = await fetch(`https://api.telegram.org/bot${BOT}/sendMessage`, {
+    const res = await fetch('/api/send', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ chat_id: CHAT, text, parse_mode: 'HTML' })
+      body: JSON.stringify({ name, phone, type, budget, comment })
     });
     const data = await res.json();
     if (data.ok) {
