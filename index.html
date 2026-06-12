@@ -1113,10 +1113,7 @@ function drawHead(p) {
   if (p.tail.length === 0) return;
   ctx.save();
   const r = p.width * 2;
-  const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, r * 4);
-  grad.addColorStop(0, p.color.replace(')', ',0.8)').replace('rgb', 'rgba').replace('#00f0ff', 'rgba(0,240,255,').replace('#7b2fff', 'rgba(123,47,255,'));
-  grad.addColorStop(1, 'transparent');
-  // simpler: just alpha
+  ctx.globalAlpha = p.alpha * 0.9;
   ctx.globalAlpha = p.alpha * 0.8;
   ctx.fillStyle = p.color;
   ctx.shadowBlur = 6;
