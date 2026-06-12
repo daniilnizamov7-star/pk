@@ -3,1284 +3,1185 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="BYTELAB — сборка ПК под заказ в Челябинске. Игровые, рабочие, серверные конфигурации. Гарантия 1 год.">
-<title>BYTELAB — Сборка ПК в Челябинске</title>
+<title>BYTELAB — Сборка ПК нового поколения</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600;700;800;900&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-/* ═══════════════════════════════════════
-   RESET & VARIABLES
-═══════════════════════════════════════ */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
 :root{
-  --bg:#080A0F;
-  --bg2:#0D0F16;
-  --bg3:#12151E;
-  --card:#141720;
-  --card2:#1A1E2A;
-  --border:rgba(99,179,237,0.08);
-  --border2:rgba(99,179,237,0.16);
-  --border3:rgba(99,179,237,0.28);
-  --text:#E8EDF5;
-  --text2:#8892A4;
-  --text3:#4A5568;
-  --accent:#3B82F6;
-  --accent2:#60A5FA;
-  --accent3:#93C5FD;
-  --neon:#00D4FF;
-  --neon2:#0099CC;
-  --neon-glow:rgba(0,212,255,0.15);
-  --neon-glow2:rgba(0,212,255,0.06);
-  --green:#00FF88;
-  --green-dim:rgba(0,255,136,0.1);
-  --purple:#A855F7;
-  --orange:#FF6B35;
-  --yellow:#FFD60A;
-  --display:'Unbounded',sans-serif;
-  --sans:'Inter',sans-serif;
-  --mono:'JetBrains Mono',monospace;
-  --r:6px;--rl:12px;--rx:18px;
+  --bg:#050810;
+  --bg2:#080f1e;
+  --bg3:#0d1828;
+  --cyan:#00f0ff;
+  --purple:#7b2fff;
+  --white:#ffffff;
+  --grey:#8899aa;
+  --card:#0a1525;
+  --border:rgba(0,240,255,0.12);
 }
-html{scroll-behavior:smooth;font-size:16px}
+
+html{scroll-behavior:smooth}
+
 body{
-  font-family:var(--sans);
   background:var(--bg);
-  color:var(--text);
-  line-height:1.6;
+  color:var(--white);
+  font-family:'Inter',sans-serif;
   overflow-x:hidden;
-  -webkit-font-smoothing:antialiased;
 }
-a{text-decoration:none;color:inherit}
+
+/* ── SCROLLBAR ── */
 ::-webkit-scrollbar{width:4px}
 ::-webkit-scrollbar-track{background:var(--bg)}
-::-webkit-scrollbar-thumb{background:var(--neon2);border-radius:2px}
+::-webkit-scrollbar-thumb{background:var(--cyan);border-radius:2px}
 
-/* ═══════════════════════════════════════
-   SCANLINE OVERLAY
-═══════════════════════════════════════ */
-body::before{
-  content:'';
-  position:fixed;inset:0;z-index:9999;
-  pointer-events:none;
-  background:repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 2px,
-    rgba(0,0,0,0.03) 2px,
-    rgba(0,0,0,0.03) 4px
-  );
-}
-
-/* ═══════════════════════════════════════
-   NAV
-═══════════════════════════════════════ */
-nav{
-  position:fixed;inset:0 0 auto;z-index:100;
-  height:58px;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 clamp(16px,4vw,56px);
-  background:rgba(8,10,15,0.92);
-  backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--border2);
-  transition:border-color .3s;
-}
-nav.active{border-bottom-color:var(--neon2)}
-.nav-logo{
-  font-family:var(--display);font-size:16px;font-weight:800;
-  letter-spacing:.04em;
-  display:flex;align-items:center;gap:10px;
-  position:relative;
-}
-.nav-logo-text{
-  background:linear-gradient(90deg,var(--neon),var(--accent2));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;
-}
-.nav-logo-sub{
-  font-family:var(--mono);font-size:9px;color:var(--text3);
-  letter-spacing:.12em;text-transform:uppercase;
-  position:absolute;bottom:-13px;left:0;
-}
-.nav-pulse{
-  width:6px;height:6px;border-radius:50%;
-  background:var(--green);
-  box-shadow:0 0 8px var(--green);
-  animation:npulse 2s ease-in-out infinite;
-}
-@keyframes npulse{0%,100%{opacity:1;box-shadow:0 0 8px var(--green)}50%{opacity:.4;box-shadow:none}}
-.nav-links{display:flex;gap:28px;list-style:none}
-.nav-links a{
-  font-family:var(--mono);font-size:11px;font-weight:500;
-  color:var(--text3);letter-spacing:.08em;text-transform:uppercase;
-  transition:color .2s;
-  position:relative;
-}
-.nav-links a::after{
-  content:'';position:absolute;left:0;bottom:-4px;
-  width:0;height:1px;background:var(--neon);
-  transition:width .25s;
-  box-shadow:0 0 6px var(--neon);
-}
-.nav-links a:hover{color:var(--neon)}
-.nav-links a:hover::after{width:100%}
-.nav-r{display:flex;align-items:center;gap:12px}
-.nav-phone{
-  font-family:var(--mono);font-size:11px;color:var(--text3);
-  display:none;
-}
-@media(min-width:1024px){.nav-phone{display:block}}
-.btn-nav{
-  font-family:var(--mono);font-size:11px;font-weight:600;
-  padding:8px 18px;border-radius:var(--r);
-  letter-spacing:.06em;text-transform:uppercase;
-  border:1px solid var(--neon2);
-  color:var(--neon);
-  background:rgba(0,212,255,0.06);
-  cursor:pointer;transition:all .2s;
-  position:relative;overflow:hidden;
-}
-.btn-nav::before{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(90deg,transparent,rgba(0,212,255,0.1),transparent);
-  transform:translateX(-100%);transition:transform .4s;
-}
-.btn-nav:hover{background:rgba(0,212,255,0.12);box-shadow:0 0 16px rgba(0,212,255,0.2)}
-.btn-nav:hover::before{transform:translateX(100%)}
-
-/* ═══════════════════════════════════════
-   HERO
-═══════════════════════════════════════ */
-.hero{
+/* ── CANVAS HERO ── */
+#hero{
   position:relative;
   min-height:100vh;
-  display:flex;flex-direction:column;justify-content:center;
-  padding:78px clamp(16px,4vw,56px) 60px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   overflow:hidden;
 }
 
-/* Animated grid background */
-.hero-grid{
-  position:absolute;inset:0;
-  background-image:
-    linear-gradient(rgba(0,212,255,0.04) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(0,212,255,0.04) 1px,transparent 1px);
-  background-size:60px 60px;
-  animation:gridMove 20s linear infinite;
-}
-@keyframes gridMove{from{background-position:0 0}to{background-position:60px 60px}}
-
-/* Radial fade over grid */
-.hero-grid::after{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse 70% 70% at 50% 50%,transparent 30%,var(--bg) 80%);
+#traceCanvas{
+  position:absolute;
+  inset:0;
+  width:100%;height:100%;
+  z-index:0;
 }
 
-/* Glow orbs */
-.glow-orb{
-  position:absolute;border-radius:50%;pointer-events:none;
-  filter:blur(80px);
-}
-.orb1{width:600px;height:600px;background:rgba(59,130,246,0.08);top:-200px;right:-150px}
-.orb2{width:400px;height:400px;background:rgba(0,212,255,0.06);bottom:-100px;left:-100px}
-.orb3{width:300px;height:300px;background:rgba(168,85,247,0.05);top:50%;left:30%;transform:translate(-50%,-50%)}
-
-/* Corner decorations */
-.corner{position:absolute;width:40px;height:40px;pointer-events:none}
-.corner-tl{top:80px;left:clamp(16px,4vw,56px);border-top:1px solid var(--neon2);border-left:1px solid var(--neon2)}
-.corner-tr{top:80px;right:clamp(16px,4vw,56px);border-top:1px solid var(--neon2);border-right:1px solid var(--neon2)}
-.corner-bl{bottom:30px;left:clamp(16px,4vw,56px);border-bottom:1px solid var(--neon2);border-left:1px solid var(--neon2)}
-.corner-br{bottom:30px;right:clamp(16px,4vw,56px);border-bottom:1px solid var(--neon2);border-right:1px solid var(--neon2)}
-
-.hero-inner{
-  position:relative;z-index:2;
-  max-width:1160px;margin:0 auto;width:100%;
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:60px;align-items:center;
-}
-
-/* Status badge */
-.h-status{
-  display:inline-flex;align-items:center;gap:8px;
-  font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--green);
-  border:1px solid rgba(0,255,136,0.2);
-  border-radius:var(--r);
-  padding:5px 12px;margin-bottom:28px;
-  background:rgba(0,255,136,0.04);
-}
-.status-dot{width:5px;height:5px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green);animation:npulse 2s infinite}
-
-/* Glitch title */
-h1{
-  font-family:var(--display);
-  font-size:clamp(34px,5vw,62px);
-  font-weight:800;
-  line-height:1.0;
-  letter-spacing:-.03em;
-  margin-bottom:20px;
+.hero-content{
   position:relative;
-}
-.h1-line1{
-  display:block;
-  color:var(--text);
-  position:relative;
-}
-.h1-line1::before,.h1-line1::after{
-  content:attr(data-text);
-  position:absolute;inset:0;
-  opacity:0;
-}
-.h1-line1::before{
-  color:var(--neon);
-  animation:glitch1 6s infinite;
-  clip-path:polygon(0 20%,100% 20%,100% 40%,0 40%);
-}
-.h1-line1::after{
-  color:var(--purple);
-  animation:glitch2 6s infinite;
-  clip-path:polygon(0 60%,100% 60%,100% 75%,0 75%);
-}
-@keyframes glitch1{
-  0%,90%,100%{opacity:0;transform:none}
-  92%{opacity:.7;transform:translateX(-3px)}
-  94%{opacity:.7;transform:translateX(3px)}
-  96%{opacity:0}
-}
-@keyframes glitch2{
-  0%,92%,100%{opacity:0;transform:none}
-  94%{opacity:.5;transform:translateX(2px)}
-  97%{opacity:.5;transform:translateX(-2px)}
-  99%{opacity:0}
-}
-.h1-accent{
-  display:block;
-  background:linear-gradient(90deg,var(--neon),var(--accent2),var(--purple));
-  background-size:200% 100%;
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;
-  animation:gradMove 4s ease-in-out infinite;
-}
-@keyframes gradMove{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
-.h1-dim{
-  display:block;
-  font-weight:300;font-size:.65em;
-  color:var(--text3);letter-spacing:.02em;
-  margin-top:6px;
-  -webkit-text-fill-color:var(--text3);
+  z-index:2;
+  text-align:center;
+  padding:2rem;
 }
 
-.h-desc{font-size:15px;color:var(--text2);max-width:420px;line-height:1.8;margin-bottom:36px}
+/* ── NEON LOGO ── */
+.neon-logo{
+  font-family:'Orbitron',sans-serif;
+  font-weight:900;
+  font-size:clamp(3.5rem,10vw,8rem);
+  letter-spacing:0.1em;
+  line-height:1;
+  color:#fff;
+  text-shadow:
+    0 0 10px var(--cyan),
+    0 0 30px var(--cyan),
+    0 0 60px var(--cyan),
+    0 0 100px rgba(0,240,255,0.4);
+  animation:neonPulse 3s ease-in-out infinite;
+}
 
-/* CTA buttons */
-.h-btns{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:48px}
+@keyframes neonPulse{
+  0%,100%{
+    text-shadow:
+      0 0 10px var(--cyan),
+      0 0 30px var(--cyan),
+      0 0 60px var(--cyan),
+      0 0 100px rgba(0,240,255,0.4);
+  }
+  50%{
+    text-shadow:
+      0 0 5px var(--cyan),
+      0 0 15px var(--cyan),
+      0 0 40px var(--cyan),
+      0 0 80px rgba(0,240,255,0.6),
+      0 0 140px rgba(123,47,255,0.3);
+  }
+}
+
+.hero-sub{
+  font-family:'Orbitron',sans-serif;
+  font-size:clamp(0.75rem,2vw,1rem);
+  letter-spacing:0.4em;
+  color:var(--cyan);
+  margin-top:1rem;
+  opacity:0.8;
+  text-transform:uppercase;
+}
+
+.hero-tagline{
+  margin-top:2rem;
+  font-size:clamp(1rem,2.5vw,1.3rem);
+  font-weight:300;
+  color:rgba(255,255,255,0.7);
+  max-width:520px;
+  margin-left:auto;
+  margin-right:auto;
+  line-height:1.6;
+}
+
+.hero-cta{
+  display:flex;
+  gap:1rem;
+  justify-content:center;
+  margin-top:2.5rem;
+  flex-wrap:wrap;
+}
+
 .btn-primary{
-  font-family:var(--mono);font-size:12px;font-weight:600;
-  padding:14px 28px;border-radius:var(--r);
-  letter-spacing:.06em;text-transform:uppercase;
-  background:linear-gradient(90deg,var(--neon2),var(--accent2));
-  color:#fff;border:none;cursor:pointer;
-  transition:all .25s;position:relative;overflow:hidden;
-  box-shadow:0 0 20px rgba(0,153,204,0.3);
+  font-family:'Orbitron',sans-serif;
+  font-size:0.8rem;
+  letter-spacing:0.15em;
+  padding:0.85rem 2rem;
+  border:none;
+  border-radius:2px;
+  cursor:pointer;
+  text-decoration:none;
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(135deg,var(--cyan),var(--purple));
+  color:#fff;
+  font-weight:700;
+  transition:all 0.3s;
 }
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 30px rgba(0,153,204,0.5)}
 .btn-primary::before{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.1),transparent);
-  transform:translateX(-100%);transition:transform .5s;
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,var(--purple),var(--cyan));
+  opacity:0;
+  transition:opacity 0.3s;
 }
-.btn-primary:hover::before{transform:translateX(100%)}
+.btn-primary:hover::before{opacity:1}
+.btn-primary span{position:relative;z-index:1}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,240,255,0.3)}
+
 .btn-ghost{
-  font-family:var(--mono);font-size:12px;font-weight:600;
-  padding:14px 28px;border-radius:var(--r);
-  letter-spacing:.06em;text-transform:uppercase;
-  background:transparent;color:var(--text2);
-  border:1px solid var(--border2);cursor:pointer;transition:all .25s;
+  font-family:'Orbitron',sans-serif;
+  font-size:0.8rem;
+  letter-spacing:0.15em;
+  padding:0.85rem 2rem;
+  border:1px solid var(--cyan);
+  border-radius:2px;
+  background:transparent;
+  color:var(--cyan);
+  cursor:pointer;
+  text-decoration:none;
+  font-weight:600;
+  transition:all 0.3s;
 }
-.btn-ghost:hover{border-color:var(--border3);color:var(--text);background:rgba(255,255,255,0.03)}
+.btn-ghost:hover{
+  background:rgba(0,240,255,0.08);
+  box-shadow:0 0 20px rgba(0,240,255,0.2),inset 0 0 20px rgba(0,240,255,0.05);
+  transform:translateY(-2px);
+}
 
-/* Stats row */
-.h-stats{
-  display:grid;grid-template-columns:repeat(4,1fr);
-  gap:1px;background:var(--border2);
-  border:1px solid var(--border2);border-radius:var(--rl);
-  overflow:hidden;
+.scroll-hint{
+  position:absolute;
+  bottom:2.5rem;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:2;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:0.5rem;
+  opacity:0.4;
+  animation:scrollBounce 2s ease-in-out infinite;
 }
-.hst{
+.scroll-hint span{
+  font-family:'Orbitron',sans-serif;
+  font-size:0.6rem;
+  letter-spacing:0.3em;
+  color:var(--cyan);
+}
+.scroll-arrow{
+  width:1px;height:40px;
+  background:linear-gradient(to bottom,var(--cyan),transparent);
+}
+
+@keyframes scrollBounce{
+  0%,100%{opacity:0.4;transform:translateX(-50%) translateY(0)}
+  50%{opacity:0.8;transform:translateX(-50%) translateY(6px)}
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;
+  top:0;left:0;right:0;
+  z-index:100;
+  padding:1.2rem 2rem;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:transparent;
+  transition:background 0.4s,backdrop-filter 0.4s;
+}
+nav.scrolled{
+  background:rgba(5,8,16,0.85);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{
+  font-family:'Orbitron',sans-serif;
+  font-weight:900;
+  font-size:1.2rem;
+  color:var(--white);
+  text-decoration:none;
+  letter-spacing:0.1em;
+}
+.nav-logo span{
+  color:var(--cyan);
+  text-shadow:0 0 10px var(--cyan);
+}
+.nav-links{
+  display:flex;
+  gap:2rem;
+  list-style:none;
+}
+.nav-links a{
+  font-family:'Orbitron',sans-serif;
+  font-size:0.65rem;
+  letter-spacing:0.2em;
+  color:var(--grey);
+  text-decoration:none;
+  transition:color 0.2s;
+}
+.nav-links a:hover{color:var(--cyan)}
+.nav-contact{
+  font-family:'Orbitron',sans-serif;
+  font-size:0.65rem;
+  letter-spacing:0.1em;
+  color:var(--cyan);
+  text-decoration:none;
+  border:1px solid rgba(0,240,255,0.3);
+  padding:0.4rem 1rem;
+  border-radius:2px;
+  transition:all 0.2s;
+}
+.nav-contact:hover{background:rgba(0,240,255,0.1)}
+
+/* ── DIVIDER LINE ── */
+.section-divider{
+  width:100%;
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--cyan),var(--purple),transparent);
+  opacity:0.3;
+}
+
+/* ── SECTIONS ── */
+section{padding:7rem 2rem}
+
+.section-label{
+  font-family:'Orbitron',sans-serif;
+  font-size:0.65rem;
+  letter-spacing:0.4em;
+  color:var(--cyan);
+  text-transform:uppercase;
+  margin-bottom:1rem;
+  opacity:0.8;
+}
+
+.section-title{
+  font-family:'Orbitron',sans-serif;
+  font-size:clamp(1.8rem,4vw,3rem);
+  font-weight:700;
+  line-height:1.15;
+  color:var(--white);
+  max-width:700px;
+}
+.section-title .accent{
+  color:transparent;
+  -webkit-text-stroke:1px var(--cyan);
+}
+
+.container{
+  max-width:1200px;
+  margin:0 auto;
+}
+
+/* ── ABOUT ── */
+#about{background:var(--bg2)}
+
+.about-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:5rem;
+  align-items:center;
+  margin-top:4rem;
+}
+
+.about-text p{
+  font-size:1rem;
+  line-height:1.8;
+  color:rgba(255,255,255,0.65);
+  margin-bottom:1.5rem;
+}
+.about-text strong{color:var(--white)}
+
+.about-stats{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1.5rem;
+}
+.stat-card{
   background:var(--card);
-  padding:14px 12px;text-align:center;
-  position:relative;
-}
-.hst::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent,var(--neon2),transparent);
-  opacity:0;transition:opacity .3s;
-}
-.hst:hover::before{opacity:1}
-.hst-v{
-  font-family:var(--display);font-size:22px;font-weight:800;
-  letter-spacing:-.04em;line-height:1;
-  color:var(--neon);
-  text-shadow:0 0 20px rgba(0,212,255,0.4);
-}
-.hst-l{font-family:var(--mono);font-size:9px;color:var(--text3);margin-top:4px;letter-spacing:.06em;text-transform:uppercase}
-
-/* Terminal card */
-.terminal{
-  background:var(--bg2);
-  border:1px solid var(--border2);
-  border-radius:var(--rx);
-  overflow:hidden;
-  box-shadow:0 0 0 1px var(--border),0 40px 80px rgba(0,0,0,.7),0 0 60px rgba(0,212,255,0.05);
-  animation:floatCard 6s ease-in-out infinite;
-}
-@keyframes floatCard{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-.term-top{
-  background:var(--bg3);
-  border-bottom:1px solid var(--border2);
-  padding:10px 16px;
-  display:flex;align-items:center;gap:10px;
-}
-.tlights{display:flex;gap:5px}
-.tl{width:10px;height:10px;border-radius:50%}
-.tl1{background:#FF5F57}.tl2{background:#FEBC2E}.tl3{background:#28C840}
-.term-title{
-  font-family:var(--mono);font-size:10px;color:var(--text3);
-  letter-spacing:.06em;flex:1;text-align:center;
-}
-.term-body{padding:20px}
-
-/* Spec lines like terminal */
-.spec-line{
-  display:flex;align-items:center;gap:0;
-  font-family:var(--mono);font-size:12px;
-  padding:6px 0;
-  border-bottom:1px solid rgba(255,255,255,0.03);
+  border:1px solid var(--border);
+  border-radius:4px;
+  padding:1.5rem;
   position:relative;
   overflow:hidden;
+  transition:border-color 0.3s,transform 0.3s;
 }
-.spec-line:last-child{border-bottom:none}
-.spec-line::before{
-  content:'';position:absolute;left:0;top:0;bottom:0;width:0;
-  background:linear-gradient(90deg,rgba(0,212,255,0.04),transparent);
-  transition:width .3s;
+.stat-card::after{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;
+  height:2px;
+  background:linear-gradient(90deg,var(--cyan),var(--purple));
+  transform:scaleX(0);
+  transform-origin:left;
+  transition:transform 0.4s;
 }
-.spec-line:hover::before{width:100%}
-.sl-key{color:var(--text3);width:80px;flex-shrink:0}
-.sl-sep{color:var(--neon2);margin-right:8px}
-.sl-val{color:var(--text);font-weight:500}
-.sl-val .highlight{color:var(--neon);text-shadow:0 0 10px rgba(0,212,255,0.4)}
+.stat-card:hover{border-color:rgba(0,240,255,0.3);transform:translateY(-4px)}
+.stat-card:hover::after{transform:scaleX(1)}
+.stat-num{
+  font-family:'Orbitron',sans-serif;
+  font-size:2.2rem;
+  font-weight:900;
+  color:var(--cyan);
+  line-height:1;
+  text-shadow:0 0 20px rgba(0,240,255,0.4);
+}
+.stat-label{
+  font-size:0.8rem;
+  color:var(--grey);
+  margin-top:0.4rem;
+  line-height:1.4;
+}
 
-/* Typing cursor */
-.cursor{
-  display:inline-block;width:8px;height:14px;
-  background:var(--neon);margin-left:4px;
-  vertical-align:middle;
-  animation:blink-cursor .8s step-end infinite;
-}
-@keyframes blink-cursor{0%,100%{opacity:1}50%{opacity:0}}
+/* ── SERVICES ── */
+#services{background:var(--bg)}
 
-/* Price badge */
-.price-badge{
-  margin-top:16px;
-  background:linear-gradient(135deg,rgba(0,212,255,0.06),rgba(59,130,246,0.06));
-  border:1px solid var(--border3);
-  border-radius:var(--rl);
-  padding:16px 18px;
-  display:flex;align-items:center;justify-content:space-between;
-}
-.pb-label{font-family:var(--mono);font-size:9px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase}
-.pb-val{
-  font-family:var(--display);font-size:22px;font-weight:800;
-  letter-spacing:-.04em;
-  background:linear-gradient(90deg,var(--neon),var(--accent2));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;
-}
-.pb-sub{font-family:var(--mono);font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-top:2px}
-
-/* ═══════════════════════════════════════
-   MARQUEE
-═══════════════════════════════════════ */
-.mq{
-  border-top:1px solid var(--border2);
-  border-bottom:1px solid var(--border2);
-  padding:12px 0;overflow:hidden;
-  background:var(--bg2);
-  position:relative;
-}
-.mq::before,.mq::after{
-  content:'';position:absolute;top:0;bottom:0;width:100px;z-index:1;
-}
-.mq::before{left:0;background:linear-gradient(90deg,var(--bg2),transparent)}
-.mq::after{right:0;background:linear-gradient(-90deg,var(--bg2),transparent)}
-.mq-track{display:flex;animation:mqs 28s linear infinite;width:max-content}
-@keyframes mqs{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.mq-item{
-  display:flex;align-items:center;gap:8px;
-  padding:0 24px;border-right:1px solid var(--border);
-  font-family:var(--mono);font-size:10px;font-weight:500;
-  color:var(--text3);letter-spacing:.08em;text-transform:uppercase;
-  white-space:nowrap;
-}
-.mq-dot{width:4px;height:4px;border-radius:50%;background:var(--neon);box-shadow:0 0 4px var(--neon);flex-shrink:0}
-
-/* ═══════════════════════════════════════
-   SECTION COMMONS
-═══════════════════════════════════════ */
-.sec{padding:80px clamp(16px,4vw,56px)}
-.w{max-width:1160px;margin:0 auto}
-.stag{
-  font-family:var(--mono);font-size:10px;font-weight:500;
-  color:var(--neon);letter-spacing:.14em;text-transform:uppercase;
-  margin-bottom:12px;display:flex;align-items:center;gap:8px;
-}
-.stag::before{content:'';display:inline-block;width:20px;height:1px;background:var(--neon);box-shadow:0 0 6px var(--neon)}
-.sh{
-  font-family:var(--display);
-  font-size:clamp(22px,3.5vw,38px);
-  font-weight:700;letter-spacing:-.04em;line-height:1.1;
-  margin-bottom:14px;
-}
-.sd{font-size:15px;color:var(--text2);max-width:500px;line-height:1.75;margin-bottom:48px}
-
-/* ═══════════════════════════════════════
-   BUILDS GRID
-═══════════════════════════════════════ */
-.builds-bg{background:var(--bg2)}
-.builds-grid{
+.services-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:1px;background:var(--border2);
-  border:1px solid var(--border2);border-radius:var(--rx);overflow:hidden;
+  gap:1.5rem;
+  margin-top:4rem;
 }
-.bc{
+
+.service-card{
   background:var(--card);
-  padding:24px 20px;
-  transition:background .2s;
+  border:1px solid var(--border);
+  border-radius:4px;
+  padding:2rem;
   position:relative;
   overflow:hidden;
+  cursor:default;
+  transition:all 0.3s;
 }
-.bc::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent,var(--neon2),transparent);
-  opacity:0;transition:opacity .3s;
+.service-card::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,rgba(0,240,255,0.03),rgba(123,47,255,0.03));
+  opacity:0;
+  transition:opacity 0.3s;
 }
-.bc:hover{background:var(--card2)}
-.bc:hover::before{opacity:1}
-.bc-chip{
-  display:inline-block;font-family:var(--mono);font-size:9px;
-  padding:3px 8px;border-radius:var(--r);border:1px solid;
-  margin-bottom:12px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;
+.service-card:hover{
+  border-color:rgba(0,240,255,0.25);
+  transform:translateY(-6px);
+  box-shadow:0 20px 60px rgba(0,0,0,0.4),0 0 30px rgba(0,240,255,0.05);
 }
-.cg{background:rgba(0,212,255,.06);color:var(--neon);border-color:rgba(0,212,255,.2)}
-.cw{background:rgba(0,255,136,.06);color:var(--green);border-color:rgba(0,255,136,.2)}
-.cb{background:rgba(255,214,10,.06);color:var(--yellow);border-color:rgba(255,214,10,.2)}
-.cs{background:rgba(168,85,247,.06);color:var(--purple);border-color:rgba(168,85,247,.2)}
-.cst{background:rgba(255,107,53,.06);color:var(--orange);border-color:rgba(255,107,53,.2)}
-.bc-ph{
-  width:100%;height:110px;
-  background:var(--bg3);border-radius:var(--r);margin-bottom:14px;
+.service-card:hover::before{opacity:1}
+
+.service-icon{
+  width:48px;height:48px;
+  border:1px solid var(--border);
+  border-radius:4px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.4rem;
+  margin-bottom:1.5rem;
+  position:relative;
+}
+.service-icon::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  border-radius:4px;
+  background:linear-gradient(135deg,rgba(0,240,255,0.1),rgba(123,47,255,0.1));
+}
+
+.service-title{
+  font-family:'Orbitron',sans-serif;
+  font-size:0.85rem;
+  font-weight:700;
+  letter-spacing:0.05em;
+  color:var(--white);
+  margin-bottom:0.75rem;
+}
+.service-desc{
+  font-size:0.85rem;
+  line-height:1.7;
+  color:var(--grey);
+}
+.service-tag{
+  display:inline-block;
+  margin-top:1.2rem;
+  font-family:'Orbitron',sans-serif;
+  font-size:0.6rem;
+  letter-spacing:0.2em;
+  color:var(--cyan);
+  border:1px solid rgba(0,240,255,0.2);
+  padding:0.3rem 0.7rem;
+  border-radius:2px;
+}
+
+/* ── PROCESS ── */
+#process{background:var(--bg3)}
+
+.process-steps{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:2rem;
+  margin-top:4rem;
+  position:relative;
+}
+.process-steps::before{
+  content:'';
+  position:absolute;
+  top:2rem;left:calc(12.5% + 1rem);right:calc(12.5% + 1rem);
+  height:1px;
+  background:linear-gradient(90deg,var(--cyan),var(--purple));
+  opacity:0.3;
+  z-index:0;
+}
+
+.process-step{
+  text-align:center;
+  position:relative;
+  z-index:1;
+}
+.step-num{
+  width:4rem;height:4rem;
+  border-radius:50%;
   border:1px solid var(--border);
   display:flex;align-items:center;justify-content:center;
-  position:relative;overflow:hidden;
+  margin:0 auto 1.5rem;
+  font-family:'Orbitron',sans-serif;
+  font-size:1rem;
+  font-weight:700;
+  color:var(--cyan);
+  background:var(--bg3);
+  box-shadow:0 0 20px rgba(0,240,255,0.15);
+  position:relative;
 }
-.bc-ph-lines{
-  position:absolute;inset:0;
-  background:repeating-linear-gradient(90deg,transparent,transparent 30px,rgba(0,212,255,0.02) 30px,rgba(0,212,255,0.02) 31px),
-    repeating-linear-gradient(0deg,transparent,transparent 30px,rgba(0,212,255,0.02) 30px,rgba(0,212,255,0.02) 31px);
-}
-.bc-ph-icon{
-  position:relative;z-index:1;
-  display:flex;flex-direction:column;align-items:center;gap:5px;opacity:.25;
-}
-.ph-box{width:28px;height:40px;border:1.5px solid var(--text3);border-radius:4px;position:relative}
-.ph-box::before{content:'';position:absolute;top:5px;left:3px;right:3px;height:1.5px;background:var(--text3);box-shadow:0 5px 0 var(--text3);border-radius:1px;opacity:.6}
-.ph-label{font-family:var(--mono);font-size:8px;color:var(--text3);letter-spacing:.06em;text-transform:uppercase}
-.bc-glow{
+.step-num::after{
+  content:'';
   position:absolute;
-  width:80px;height:80px;border-radius:50%;
-  background:radial-gradient(circle,rgba(0,212,255,.1) 0%,transparent 70%);
-  pointer-events:none;
+  inset:-4px;
+  border-radius:50%;
+  border:1px solid rgba(0,240,255,0.1);
 }
-.bc-name{font-family:var(--display);font-size:15px;font-weight:700;letter-spacing:-.02em;margin-bottom:6px}
-.bc-specs{font-size:12px;color:var(--text2);line-height:1.65;margin-bottom:14px;font-family:var(--mono)}
-.bc-foot{display:flex;align-items:center;justify-content:space-between;padding-top:12px;border-top:1px solid var(--border)}
-.bc-price{
-  font-family:var(--display);font-size:14px;font-weight:700;
-  color:var(--neon);text-shadow:0 0 10px rgba(0,212,255,.3);
+.step-title{
+  font-family:'Orbitron',sans-serif;
+  font-size:0.75rem;
+  font-weight:700;
+  letter-spacing:0.08em;
+  color:var(--white);
+  margin-bottom:0.75rem;
 }
-.bc-status{
-  font-family:var(--mono);font-size:9px;font-weight:600;
-  padding:3px 7px;border-radius:var(--r);
-  background:var(--green-dim);color:var(--green);
-  border:1px solid rgba(0,255,136,.2);letter-spacing:.04em;
-}
-
-/* ═══════════════════════════════════════
-   SERVICES
-═══════════════════════════════════════ */
-.svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.svc{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:var(--rx);padding:28px 24px;
-  transition:border-color .25s,transform .2s;
-  position:relative;overflow:hidden;
-}
-.svc::after{
-  content:'';position:absolute;top:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent,var(--neon2),transparent);
-  opacity:0;transition:opacity .3s;
-}
-.svc:hover{border-color:var(--border3);transform:translateY(-2px)}
-.svc:hover::after{opacity:1}
-.svc.wide{grid-column:span 2;background:var(--bg3);border-color:var(--border2)}
-.svc-ico{font-size:24px;margin-bottom:14px;display:block}
-.svc-title{font-family:var(--display);font-size:16px;font-weight:700;letter-spacing:-.02em;margin-bottom:10px}
-.svc-desc{font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:16px}
-.svc-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
-.schip{
-  font-family:var(--mono);font-size:10px;padding:3px 9px;border-radius:var(--r);
-  background:rgba(0,212,255,.04);color:var(--text3);
-  border:1px solid var(--border);letter-spacing:.04em;
-}
-.svc-price{
-  display:inline-flex;align-items:center;gap:6px;
-  font-family:var(--mono);font-size:11px;font-weight:500;
-  color:var(--neon);background:rgba(0,212,255,.05);
-  border:1px solid rgba(0,212,255,.15);padding:4px 10px;border-radius:var(--r);
+.step-desc{
+  font-size:0.8rem;
+  line-height:1.6;
+  color:var(--grey);
 }
 
-/* ═══════════════════════════════════════
-   PROCESS
-═══════════════════════════════════════ */
-.proc-bg{background:var(--bg2)}
-.proc-grid{
-  display:grid;grid-template-columns:repeat(5,1fr);
-  gap:1px;background:var(--border);
-  border:1px solid var(--border2);border-radius:var(--rx);overflow:hidden;
+/* ── SPECS TICKER ── */
+.ticker-wrap{
+  overflow:hidden;
+  padding:1.2rem 0;
+  background:rgba(0,240,255,0.03);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
 }
-.ps{
-  background:var(--card);padding:24px 16px;
-  transition:background .2s;
-  position:relative;overflow:hidden;
+.ticker{
+  display:flex;
+  width:max-content;
+  animation:ticker 25s linear infinite;
 }
-.ps:hover{background:var(--card2)}
-.ps-num{
-  font-family:var(--mono);font-size:9px;color:var(--neon2);
-  margin-bottom:16px;letter-spacing:.08em;
-  text-shadow:0 0 8px rgba(0,153,204,.4);
+.ticker-item{
+  font-family:'Orbitron',sans-serif;
+  font-size:0.7rem;
+  letter-spacing:0.2em;
+  color:var(--grey);
+  padding:0 3rem;
+  white-space:nowrap;
 }
-.ps-ico{font-size:18px;margin-bottom:10px;display:block}
-.ps-title{font-family:var(--display);font-size:12px;font-weight:700;letter-spacing:-.01em;margin-bottom:5px}
-.ps-desc{font-size:11px;color:var(--text3);line-height:1.6;font-family:var(--mono)}
+.ticker-item span{color:var(--cyan);margin-right:0.5rem}
+@keyframes ticker{
+  0%{transform:translateX(0)}
+  100%{transform:translateX(-50%)}
+}
 
-/* ═══════════════════════════════════════
-   IT BANNER
-═══════════════════════════════════════ */
-.it-bg{background:var(--bg);padding:0 clamp(16px,4vw,56px) 80px}
-.it-card{
-  max-width:1160px;margin:0 auto;
+/* ── CTA ── */
+#cta{
   background:var(--bg2);
-  border:1px solid var(--border2);
-  border-radius:var(--rx);
-  padding:48px 52px;
-  display:grid;grid-template-columns:1fr auto;
-  gap:48px;align-items:center;
-  position:relative;overflow:hidden;
+  text-align:center;
 }
-.it-card::before{
-  content:'';position:absolute;
-  top:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent,var(--neon),transparent);
-  animation:scanline 4s ease-in-out infinite;
-}
-@keyframes scanline{0%,100%{opacity:0}50%{opacity:1}}
-.it-code-bg{
-  position:absolute;right:300px;top:0;bottom:0;
-  display:flex;align-items:center;
-  font-family:var(--mono);font-size:11px;
-  color:rgba(0,212,255,.04);
-  line-height:2;white-space:pre;
-  pointer-events:none;user-select:none;
-}
-.it-badge{
-  display:inline-flex;align-items:center;gap:7px;
-  border:1px solid rgba(0,212,255,.2);border-radius:var(--r);
-  padding:4px 12px 4px 8px;margin-bottom:18px;
-  background:rgba(0,212,255,.04);
-}
-.it-bdot{width:5px;height:5px;border-radius:50%;background:var(--neon);box-shadow:0 0 6px var(--neon)}
-.it-btxt{font-family:var(--mono);font-size:10px;color:var(--neon);letter-spacing:.08em;text-transform:uppercase}
-.it-h{
-  font-family:var(--display);font-size:clamp(20px,3vw,34px);
-  font-weight:700;letter-spacing:-.04em;line-height:1.15;margin-bottom:12px;
-}
-.it-h .dim{color:var(--text3);font-weight:300}
-.it-d{font-size:14px;color:var(--text2);line-height:1.75;max-width:440px;margin-bottom:22px}
-.it-tags{display:flex;gap:7px;flex-wrap:wrap}
-.it-tag{
-  font-family:var(--mono);font-size:10px;padding:4px 10px;border-radius:var(--r);
-  background:rgba(255,255,255,.03);color:var(--text3);border:1px solid var(--border);
-  letter-spacing:.04em;
-}
-.it-r{flex-shrink:0;text-align:center;min-width:200px}
-.it-pb{
-  background:rgba(0,212,255,.04);border:1px solid rgba(0,212,255,.15);
-  border-radius:var(--rl);padding:20px 24px;margin-bottom:12px;
-}
-.it-from{font-family:var(--mono);font-size:9px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
-.it-price{
-  font-family:var(--display);font-size:26px;font-weight:800;letter-spacing:-.04em;line-height:1;
-  background:linear-gradient(90deg,var(--neon),var(--accent2));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-}
-.it-psub{font-size:11px;color:var(--text3);margin-top:3px;font-family:var(--mono)}
-.btn-it{
-  width:100%;
-  font-family:var(--mono);font-size:11px;font-weight:600;
-  padding:13px 20px;border-radius:var(--r);
-  letter-spacing:.06em;text-transform:uppercase;
-  background:var(--text);color:var(--bg);
-  border:none;cursor:pointer;transition:all .2s;
-  display:flex;align-items:center;justify-content:center;gap:6px;
-}
-.btn-it:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.4)}
-
-/* ═══════════════════════════════════════
-   REVIEWS
-═══════════════════════════════════════ */
-.rv-bg{background:var(--bg2)}
-.rv-scroll{overflow-x:auto;margin:0 -clamp(16px,4vw,56px);padding:0 clamp(16px,4vw,56px);cursor:grab;scrollbar-width:none}
-.rv-scroll::-webkit-scrollbar{display:none}
-.rv-scroll.grabbing{cursor:grabbing}
-.rv-track{display:flex;gap:10px;padding-bottom:4px;width:max-content}
-.rv{
-  width:300px;flex-shrink:0;
-  background:var(--card);border:1px solid var(--border);
-  border-radius:var(--rx);padding:20px;
-  transition:border-color .2s;position:relative;overflow:hidden;
-}
-.rv::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent,var(--neon2),transparent);
-  opacity:0;transition:opacity .3s;
-}
-.rv:hover{border-color:var(--border3)}
-.rv:hover::before{opacity:1}
-.rv-stars{color:#F59E0B;font-size:12px;letter-spacing:2px;margin-bottom:10px}
-.rv-txt{font-size:13px;color:var(--text2);line-height:1.75;margin-bottom:14px;font-style:italic}
-.rv-bot{display:flex;align-items:center;gap:9px;padding-top:12px;border-top:1px solid var(--border)}
-.rv-ava{
-  width:32px;height:32px;border-radius:50%;
-  background:var(--card2);border:1px solid var(--border2);
-  display:flex;align-items:center;justify-content:center;
-  font-family:var(--display);font-size:10px;font-weight:700;color:var(--neon);
-  flex-shrink:0;
-}
-.rv-name{font-size:12px;font-weight:600;margin-bottom:1px}
-.rv-sub{font-family:var(--mono);font-size:9px;color:var(--text3);letter-spacing:.03em}
-.rv-src{margin-left:auto;font-family:var(--mono);font-size:9px;color:var(--text3)}
-.rv-hint{text-align:center;margin-top:16px;font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.08em}
-
-/* ═══════════════════════════════════════
-   FAQ
-═══════════════════════════════════════ */
-.faq-wrap{max-width:700px}
-.faq-list{display:flex;flex-direction:column;gap:1px;background:var(--border);border:1px solid var(--border2);border-radius:var(--rx);overflow:hidden}
-.fi{background:var(--card);transition:background .2s}
-.fi.open{background:var(--card2)}
-.fq{
-  width:100%;background:none;border:none;cursor:pointer;
-  padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px;
-  font-family:var(--mono);font-size:12px;font-weight:600;
-  color:var(--text);text-align:left;letter-spacing:.02em;
-}
-.fq-ico{
-  width:24px;height:24px;border-radius:50%;
-  background:var(--bg3);border:1px solid var(--border);
-  display:flex;align-items:center;justify-content:center;
-  font-size:15px;line-height:1;color:var(--text3);flex-shrink:0;
-  transition:transform .3s,background .2s,color .2s,border-color .2s;
-}
-.fi.open .fq-ico{transform:rotate(45deg);background:var(--neon2);color:#fff;border-color:var(--neon2);box-shadow:0 0 10px rgba(0,153,204,.4)}
-.fa{
-  max-height:0;overflow:hidden;transition:max-height .35s ease,padding .3s;
-  font-family:var(--mono);font-size:12px;color:var(--text2);line-height:1.75;padding:0 18px;
-}
-.fi.open .fa{max-height:160px;padding:0 18px 16px}
-
-/* ═══════════════════════════════════════
-   CTA
-═══════════════════════════════════════ */
-.cta-bg{background:var(--bg2);padding:80px clamp(16px,4vw,56px)}
-.cta-card{
-  max-width:1160px;margin:0 auto;
-  background:var(--bg);
-  border:1px solid var(--border2);border-radius:var(--rx);
-  padding:64px;text-align:center;
-  position:relative;overflow:hidden;
+.cta-inner{
+  max-width:700px;
+  margin:0 auto;
 }
 .cta-glow{
+  width:300px;height:300px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(0,240,255,0.08) 0%,transparent 70%);
+  margin:0 auto 3rem;
+  display:flex;align-items:center;justify-content:center;
+}
+.cta-ring{
+  width:200px;height:200px;
+  border-radius:50%;
+  border:1px solid rgba(0,240,255,0.2);
+  display:flex;align-items:center;justify-content:center;
+  animation:rotateSlow 8s linear infinite;
+  position:relative;
+}
+.cta-ring::after{
+  content:'';
   position:absolute;
-  width:600px;height:300px;border-radius:50%;
-  background:radial-gradient(ellipse,rgba(0,212,255,.06) 0%,transparent 70%);
-  top:-50px;left:50%;transform:translateX(-50%);
-  pointer-events:none;
+  width:10px;height:10px;
+  border-radius:50%;
+  background:var(--cyan);
+  top:-5px;left:50%;
+  box-shadow:0 0 10px var(--cyan),0 0 20px var(--cyan);
 }
-.cta-lines{
-  position:absolute;inset:0;
-  background:repeating-linear-gradient(
-    90deg,transparent,transparent 59px,rgba(0,212,255,0.02) 59px,rgba(0,212,255,0.02) 60px
-  );
-  pointer-events:none;
+.cta-ring-inner{
+  width:140px;height:140px;
+  border-radius:50%;
+  border:1px solid rgba(123,47,255,0.3);
+  display:flex;align-items:center;justify-content:center;
+  animation:rotateSlow 5s linear infinite reverse;
 }
-.cta-h{
-  font-family:var(--display);font-size:clamp(24px,4vw,46px);font-weight:800;
-  letter-spacing:-.04em;line-height:1.1;margin-bottom:14px;
-  position:relative;
+.cta-icon{
+  font-size:3rem;
+  filter:drop-shadow(0 0 10px rgba(0,240,255,0.5));
 }
-.cta-h .glow-text{
-  background:linear-gradient(90deg,var(--neon),var(--accent2),var(--purple));
-  background-size:200%;
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  animation:gradMove 4s ease-in-out infinite;
+@keyframes rotateSlow{
+  from{transform:rotate(0deg)}
+  to{transform:rotate(360deg)}
 }
-.cta-d{font-size:15px;color:var(--text2);line-height:1.7;margin-bottom:40px;position:relative}
-.cta-contacts{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:10px;max-width:500px;margin:0 auto;
-  position:relative;
-}
-.cc{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:var(--rl);padding:18px;text-align:left;
-  transition:all .2s;display:block;position:relative;overflow:hidden;
-}
-.cc::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent,var(--neon2),transparent);
-  opacity:0;transition:opacity .3s;
-}
-.cc:hover{border-color:var(--border3);transform:translateY(-2px)}
-.cc:hover::before{opacity:1}
-.cc-ico{font-size:18px;margin-bottom:8px;display:block}
-.cc-role{font-family:var(--mono);font-size:9px;color:var(--text3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
-.cc-name{font-size:13px;font-weight:600;margin-bottom:4px}
-.cc-phone{font-family:var(--mono);font-size:12px;color:var(--neon);font-weight:500;text-shadow:0 0 8px rgba(0,212,255,.3)}
 
-/* ═══════════════════════════════════════
-   FOOTER
-═══════════════════════════════════════ */
+.cta-title{
+  font-family:'Orbitron',sans-serif;
+  font-size:clamp(1.5rem,4vw,2.5rem);
+  font-weight:700;
+  color:var(--white);
+  margin-bottom:1rem;
+  line-height:1.2;
+}
+.cta-sub{
+  font-size:1rem;
+  color:var(--grey);
+  margin-bottom:2.5rem;
+  line-height:1.6;
+}
+
+.contacts-row{
+  display:flex;
+  gap:1.5rem;
+  justify-content:center;
+  margin-top:2rem;
+  flex-wrap:wrap;
+}
+.contact-item{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:4px;
+  padding:1.5rem 2rem;
+  text-align:left;
+  min-width:200px;
+  transition:all 0.3s;
+  text-decoration:none;
+}
+.contact-item:hover{
+  border-color:rgba(0,240,255,0.3);
+  transform:translateY(-4px);
+  box-shadow:0 10px 40px rgba(0,240,255,0.1);
+}
+.contact-role{
+  font-family:'Orbitron',sans-serif;
+  font-size:0.6rem;
+  letter-spacing:0.25em;
+  color:var(--cyan);
+  margin-bottom:0.5rem;
+}
+.contact-name{
+  font-family:'Orbitron',sans-serif;
+  font-size:1rem;
+  font-weight:700;
+  color:var(--white);
+  margin-bottom:0.3rem;
+}
+.contact-phone{
+  font-size:0.85rem;
+  color:var(--grey);
+}
+
+/* ── FOOTER ── */
 footer{
-  background:var(--bg3);border-top:1px solid var(--border2);
-  padding:32px clamp(16px,4vw,56px) 24px;
+  background:var(--bg);
+  padding:3rem 2rem;
+  border-top:1px solid var(--border);
 }
-.ft-in{
-  max-width:1160px;margin:0 auto;
-  display:flex;justify-content:space-between;align-items:center;
-  gap:20px;flex-wrap:wrap;
-  padding-bottom:20px;border-bottom:1px solid var(--border);
+.footer-inner{
+  max-width:1200px;
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:1rem;
 }
-.ft-brand{
-  font-family:var(--display);font-size:16px;font-weight:800;letter-spacing:.04em;
-  background:linear-gradient(90deg,var(--neon),var(--accent2));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+.footer-brand{
+  font-family:'Orbitron',sans-serif;
+  font-size:1.2rem;
+  font-weight:900;
+  color:var(--white);
+  letter-spacing:0.1em;
 }
-.ft-sub{font-family:var(--mono);font-size:10px;color:var(--text3);margin-top:4px;letter-spacing:.04em}
-.ft-nav{display:flex;gap:20px}
-.ft-nav a{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.06em;text-transform:uppercase;transition:color .2s}
-.ft-nav a:hover{color:var(--neon)}
-.ft-bot{max-width:1160px;margin:16px auto 0;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
-.ft-copy,.ft-dev{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.04em}
-.ft-dev a{color:var(--neon2);transition:opacity .2s}
-.ft-dev a:hover{opacity:.7}
-
-/* ═══════════════════════════════════════
-   ANIMATIONS & REVEAL
-═══════════════════════════════════════ */
-@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
-.h-status{animation:fadeUp .4s .05s both}
-h1{animation:fadeUp .6s .15s both}
-.h-desc{animation:fadeUp .6s .25s both}
-.h-btns{animation:fadeUp .6s .35s both}
-.h-stats{animation:fadeUp .6s .45s both}
-.terminal{animation:fadeUp .8s .2s both,floatCard 6s 1s ease-in-out infinite}
-
-.reveal{opacity:0;transform:translateY(16px);transition:opacity .6s,transform .6s}
-.reveal.visible{opacity:1;transform:none}
-.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
-
-/* Number counter animation */
-.count-up{display:inline-block}
-
-/* ═══════════════════════════════════════
-   RESPONSIVE
-═══════════════════════════════════════ */
-@media(max-width:960px){
-  .hero-inner{grid-template-columns:1fr;gap:40px}
-  .terminal{display:none}
-  .builds-grid{grid-template-columns:1fr 1fr}
-  .proc-grid{grid-template-columns:1fr 1fr 1fr}
-  .it-card{grid-template-columns:1fr;padding:32px 24px}
-  .it-r{text-align:left;min-width:auto}
-  .btn-it{width:auto;display:inline-flex}
-  .svc-grid{grid-template-columns:1fr}
-  .svc.wide{grid-column:span 1}
-  .cta-card{padding:40px 24px}
-  .it-code-bg{display:none}
-  .corner{display:none}
+.footer-brand span{
+  color:var(--cyan);
+  text-shadow:0 0 10px var(--cyan);
 }
-@media(max-width:640px){
-  nav .nav-links{display:none}
-  .h-stats{grid-template-columns:repeat(2,1fr)}
-  .builds-grid{grid-template-columns:1fr}
-  .proc-grid{grid-template-columns:1fr 1fr}
-  .cta-contacts{grid-template-columns:1fr}
+.footer-copy{
+  font-size:0.75rem;
+  color:var(--grey);
+}
+
+/* ── REVEAL ── */
+.reveal{
+  opacity:0;
+  transform:translateY(30px);
+  transition:opacity 0.7s ease,transform 0.7s ease;
+}
+.reveal.visible{
+  opacity:1;
+  transform:none;
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .about-grid{grid-template-columns:1fr}
+  .services-grid{grid-template-columns:1fr 1fr}
+  .process-steps{grid-template-columns:1fr 1fr}
+  .process-steps::before{display:none}
+  .nav-links{display:none}
+}
+@media(max-width:600px){
+  .services-grid{grid-template-columns:1fr}
+  .process-steps{grid-template-columns:1fr}
+  .about-stats{grid-template-columns:1fr 1fr}
+  nav{padding:1rem}
+  .nav-contact{display:none}
 }
 </style>
 </head>
 <body>
 
 <!-- NAV -->
-<nav id="nav">
-  <a href="#top" class="nav-logo">
-    <span class="nav-logo-text">BYTELAB</span>
-    <span class="nav-pulse"></span>
-    <span class="nav-logo-sub">Челябинск</span>
-  </a>
+<nav id="navbar">
+  <a href="#" class="nav-logo">BYTE<span>LAB</span></a>
   <ul class="nav-links">
-    <li><a href="#builds">Сборки</a></li>
-    <li><a href="#services">Услуги</a></li>
-    <li><a href="#process">Процесс</a></li>
-    <li><a href="#reviews">Отзывы</a></li>
-    <li><a href="#it">IT</a></li>
+    <li><a href="#about">О НАС</a></li>
+    <li><a href="#services">УСЛУГИ</a></li>
+    <li><a href="#process">ПРОЦЕСС</a></li>
+    <li><a href="#cta">КОНТАКТЫ</a></li>
   </ul>
-  <div class="nav-r">
-    <span class="nav-phone">+7 993 935-20-44</span>
-    <a href="tel:+79939352044" class="btn-nav">Связаться →</a>
-  </div>
+  <a href="tel:+79939352044" class="nav-contact">+7 993 935-20-44</a>
 </nav>
 
 <!-- HERO -->
-<div id="top" style="padding-top:58px">
-<section class="hero">
-  <div class="hero-grid"></div>
-  <div class="glow-orb orb1"></div>
-  <div class="glow-orb orb2"></div>
-  <div class="glow-orb orb3"></div>
-  <div class="corner corner-tl"></div>
-  <div class="corner corner-tr"></div>
-  <div class="corner corner-bl"></div>
-  <div class="corner corner-br"></div>
-
-  <div class="hero-inner">
-    <!-- LEFT -->
-    <div>
-      <div class="h-status">
-        <span class="status-dot"></span>
-        Принимаем заявки · Челябинск
-      </div>
-      <h1>
-        <span class="h1-line1" data-text="Собираем ПК">Собираем ПК</span>
-        <span class="h1-accent">любого уровня</span>
-        <span class="h1-dim">под тебя, а не с полки</span>
-      </h1>
-      <p class="h-desc">Игровые, рабочие, студийные, серверные — честный подбор комплектующих, профессиональная сборка и настройка под ключ.</p>
-      <div class="h-btns">
-        <a href="tel:+79939352044" class="btn-primary">Обсудить сборку →</a>
-        <a href="#builds" class="btn-ghost">Смотреть работы</a>
-      </div>
-      <div class="h-stats">
-        <div class="hst">
-          <div class="hst-v"><span class="count-up" data-target="50">0</span>+</div>
-          <div class="hst-l">Сборок</div>
-        </div>
-        <div class="hst">
-          <div class="hst-v">4.9</div>
-          <div class="hst-l">Рейтинг</div>
-        </div>
-        <div class="hst">
-          <div class="hst-v">0₽</div>
-          <div class="hst-l">Консультация</div>
-        </div>
-        <div class="hst">
-          <div class="hst-v">1г</div>
-          <div class="hst-l">Гарантия</div>
-        </div>
-      </div>
+<section id="hero">
+  <canvas id="traceCanvas"></canvas>
+  <div class="hero-content">
+    <div class="neon-logo">BYTELAB</div>
+    <div class="hero-sub">Челябинск · Сборка ПК нового поколения</div>
+    <p class="hero-tagline">Мы не продаём железо. Мы собираем машины, которые работают быстрее мысли.</p>
+    <div class="hero-cta">
+      <a href="#cta" class="btn-primary"><span>Собрать свой ПК →</span></a>
+      <a href="#services" class="btn-ghost">Посмотреть услуги</a>
     </div>
+  </div>
+  <div class="scroll-hint">
+    <span>SCROLL</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
 
-    <!-- RIGHT — Terminal -->
-    <div>
-      <div class="terminal">
-        <div class="term-top">
-          <div class="tlights">
-            <div class="tl tl1"></div>
-            <div class="tl tl2"></div>
-            <div class="tl tl3"></div>
-          </div>
-          <div class="term-title">bytelab.ru — config_berserker_4k.json</div>
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker" id="ticker">
+    <span class="ticker-item"><span>⬡</span>INTEL CORE ULTRA</span>
+    <span class="ticker-item"><span>⬡</span>AMD RYZEN 9</span>
+    <span class="ticker-item"><span>⬡</span>RTX 5090</span>
+    <span class="ticker-item"><span>⬡</span>DDR5 · 7200MHz</span>
+    <span class="ticker-item"><span>⬡</span>NVMe Gen5 SSD</span>
+    <span class="ticker-item"><span>⬡</span>ASUS ROG · MSI MEG</span>
+    <span class="ticker-item"><span>⬡</span>CABLE MANAGEMENT</span>
+    <span class="ticker-item"><span>⬡</span>CUSTOM LOOP WC</span>
+    <span class="ticker-item"><span>⬡</span>BYTELAB WARRANTY</span>
+    <span class="ticker-item"><span>⬡</span>INTEL CORE ULTRA</span>
+    <span class="ticker-item"><span>⬡</span>AMD RYZEN 9</span>
+    <span class="ticker-item"><span>⬡</span>RTX 5090</span>
+    <span class="ticker-item"><span>⬡</span>DDR5 · 7200MHz</span>
+    <span class="ticker-item"><span>⬡</span>NVMe Gen5 SSD</span>
+    <span class="ticker-item"><span>⬡</span>ASUS ROG · MSI MEG</span>
+    <span class="ticker-item"><span>⬡</span>CABLE MANAGEMENT</span>
+    <span class="ticker-item"><span>⬡</span>CUSTOM LOOP WC</span>
+    <span class="ticker-item"><span>⬡</span>BYTELAB WARRANTY</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <div class="section-label">// О КОМПАНИИ</div>
+        <h2 class="section-title">Сборка — это <span class="accent">искусство</span> точности</h2>
+        <p style="margin-top:2rem">Каждый ПК от BYTELAB — это <strong>ручная работа</strong>. Мы подбираем компоненты под задачу: геймеру нужен максимальный FPS, монтажёру — скорость рендера, архитектору — безотказность под нагрузкой.</p>
+        <p>Никаких шаблонных сборок. Только индивидуальный подход и полная прозрачность на каждом шаге.</p>
+        <a href="#cta" class="btn-primary" style="margin-top:1rem"><span>Обсудить проект →</span></a>
+      </div>
+      <div class="about-stats reveal" style="transition-delay:0.15s">
+        <div class="stat-card">
+          <div class="stat-num">50+</div>
+          <div class="stat-label">сборок выполнено в Челябинске</div>
         </div>
-        <div class="term-body">
-          <div class="spec-line">
-            <span class="sl-key">system</span>
-            <span class="sl-sep">:</span>
-            <span class="sl-val"><span class="highlight">BYTELAB</span> Custom Build</span>
-          </div>
-          <div class="spec-line">
-            <span class="sl-key">cpu</span>
-            <span class="sl-sep">:</span>
-            <span class="sl-val">Ryzen 9 <span class="highlight">7900X</span></span>
-          </div>
-          <div class="spec-line">
-            <span class="sl-key">gpu</span>
-            <span class="sl-sep">:</span>
-            <span class="sl-val">RTX <span class="highlight">4080</span> 16GB</span>
-          </div>
-          <div class="spec-line">
-            <span class="sl-key">ram</span>
-            <span class="sl-sep">:</span>
-            <span class="sl-val"><span class="highlight">64 GB</span> DDR5-6000</span>
-          </div>
-          <div class="spec-line">
-            <span class="sl-key">storage</span>
-            <span class="sl-sep">:</span>
-            <span class="sl-val"><span class="highlight">2 TB</span> NVMe PCIe 5.0</span>
-          </div>
-          <div class="spec-line">
-            <span class="sl-key">cooling</span>
-            <span class="sl-sep">:</span>
-            <span class="sl-val">360mm <span class="highlight">AIO</span> + 6 fans</span>
-          </div>
-          <div class="spec-line">
-            <span class="sl-key">target</span>
-            <span class="sl-sep">:</span>
-            <span class="sl-val"><span class="highlight">4K Ultra</span> 144 FPS</span>
-          </div>
-          <div class="spec-line">
-            <span class="sl-key">status</span>
-            <span class="sl-sep">:</span>
-            <span class="sl-val" style="color:var(--green)">✓ testing passed</span>
-          </div>
-          <div class="spec-line" style="border:none">
-            <span class="sl-key" style="color:var(--neon2)">›</span>
-            <span class="sl-sep" style="margin-right:0"></span>
-            <span class="sl-val" style="color:var(--text3)">ready for delivery<span class="cursor"></span></span>
-          </div>
+        <div class="stat-card">
+          <div class="stat-num">3</div>
+          <div class="stat-label">года на рынке компьютерного железа</div>
         </div>
-        <div class="price-badge">
-          <div>
-            <div class="pb-label">Итоговая стоимость</div>
-            <div class="pb-val">~290 000 ₽</div>
-            <div class="pb-sub">работа + комплектующие</div>
-          </div>
-          <div style="text-align:right">
-            <div class="pb-label">Тест нагрузки</div>
-            <div style="font-family:var(--mono);font-size:18px;color:var(--green);text-shadow:0 0 10px rgba(0,255,136,.3)">✓ pass</div>
-            <div class="pb-sub">24h стресс-тест</div>
-          </div>
+        <div class="stat-card">
+          <div class="stat-num">24ч</div>
+          <div class="stat-label">срок сборки под ключ</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">1 год</div>
+          <div class="stat-label">гарантия на каждую сборку</div>
         </div>
       </div>
     </div>
   </div>
 </section>
-</div>
 
-<!-- MARQUEE -->
-<div class="mq">
-  <div class="mq-track">
-    <div class="mq-item"><span class="mq-dot"></span>Игровые ПК</div>
-    <div class="mq-item"><span class="mq-dot"></span>Рабочие станции</div>
-    <div class="mq-item"><span class="mq-dot"></span>Серверные сборки</div>
-    <div class="mq-item"><span class="mq-dot"></span>Апгрейд и ремонт</div>
-    <div class="mq-item"><span class="mq-dot"></span>Чистка · Обслуживание</div>
-    <div class="mq-item"><span class="mq-dot"></span>IT-разработка</div>
-    <div class="mq-item"><span class="mq-dot"></span>Лендинги</div>
-    <div class="mq-item"><span class="mq-dot"></span>PWA-приложения</div>
-    <div class="mq-item"><span class="mq-dot"></span>Гарантия 1 год</div>
-    <div class="mq-item"><span class="mq-dot"></span>Большой склад</div>
-    <div class="mq-item"><span class="mq-dot"></span>Игровые ПК</div>
-    <div class="mq-item"><span class="mq-dot"></span>Рабочие станции</div>
-    <div class="mq-item"><span class="mq-dot"></span>Серверные сборки</div>
-    <div class="mq-item"><span class="mq-dot"></span>Апгрейд и ремонт</div>
-    <div class="mq-item"><span class="mq-dot"></span>Чистка · Обслуживание</div>
-    <div class="mq-item"><span class="mq-dot"></span>IT-разработка</div>
-    <div class="mq-item"><span class="mq-dot"></span>Лендинги</div>
-    <div class="mq-item"><span class="mq-dot"></span>PWA-приложения</div>
-    <div class="mq-item"><span class="mq-dot"></span>Гарантия 1 год</div>
-    <div class="mq-item"><span class="mq-dot"></span>Большой склад</div>
-  </div>
-</div>
-
-<!-- BUILDS -->
-<section class="sec builds-bg" id="builds">
-  <div class="w">
-    <div class="stag reveal">наши сборки</div>
-    <h2 class="sh reveal">Конфигурации</h2>
-    <p class="sd reveal">Реальные сборки — у каждой своя история. Фото появятся скоро.</p>
-    <div class="builds-grid">
-      <div class="bc reveal">
-        <div class="bc-ph"><div class="bc-ph-lines"></div><span class="bc-glow"></span><div class="bc-ph-icon"><div class="ph-box"></div><span class="ph-label">фото скоро</span></div></div>
-        <div class="bc-chip cg">Gaming</div>
-        <div class="bc-name">«Берсерк» 4K</div>
-        <div class="bc-specs">Ryzen 9 7900X · RTX 4080 16GB<br>64 GB DDR5 · 2 TB NVMe</div>
-        <div class="bc-foot"><span class="bc-price">~290 000 ₽</span><span class="bc-status">✓ Выдан</span></div>
-      </div>
-      <div class="bc reveal d1">
-        <div class="bc-ph"><div class="bc-ph-lines"></div><span class="bc-glow"></span><div class="bc-ph-icon"><div class="ph-box"></div><span class="ph-label">фото скоро</span></div></div>
-        <div class="bc-chip cw">Work</div>
-        <div class="bc-name">«Редактор» Pro</div>
-        <div class="bc-specs">Ryzen 7 7700X · RTX 4070 Ti<br>64 GB DDR5 · 4 TB NVMe</div>
-        <div class="bc-foot"><span class="bc-price">~210 000 ₽</span><span class="bc-status">✓ Выдан</span></div>
-      </div>
-      <div class="bc reveal d2">
-        <div class="bc-ph"><div class="bc-ph-lines"></div><span class="bc-glow"></span><div class="bc-ph-icon"><div class="ph-box"></div><span class="ph-label">фото скоро</span></div></div>
-        <div class="bc-chip cb">Бюджет</div>
-        <div class="bc-name">«Старт» 1080p</div>
-        <div class="bc-specs">Intel i5-13400F · RTX 4060<br>16 GB DDR4 · 1 TB NVMe</div>
-        <div class="bc-foot"><span class="bc-price">~75 000 ₽</span><span class="bc-status">✓ Выдан</span></div>
-      </div>
-      <div class="bc reveal">
-        <div class="bc-ph"><div class="bc-ph-lines"></div><span class="bc-glow"></span><div class="bc-ph-icon"><div class="ph-box"></div><span class="ph-label">фото скоро</span></div></div>
-        <div class="bc-chip cg">Gaming</div>
-        <div class="bc-name">«Снайпер» 1440p</div>
-        <div class="bc-specs">Intel i7-13700KF · RTX 4070S<br>32 GB DDR5 · 1 TB NVMe</div>
-        <div class="bc-foot"><span class="bc-price">~165 000 ₽</span><span class="bc-status">✓ Выдан</span></div>
-      </div>
-      <div class="bc reveal d1">
-        <div class="bc-ph"><div class="bc-ph-lines"></div><span class="bc-glow"></span><div class="bc-ph-icon"><div class="ph-box"></div><span class="ph-label">фото скоро</span></div></div>
-        <div class="bc-chip cst">Studio</div>
-        <div class="bc-name">«Инженер» CAD</div>
-        <div class="bc-specs">Ryzen 9 9900X · RTX 4000 Ada<br>128 GB ECC DDR5</div>
-        <div class="bc-foot"><span class="bc-price">~320 000 ₽</span><span class="bc-status">✓ Выдан</span></div>
-      </div>
-      <div class="bc reveal d2">
-        <div class="bc-ph"><div class="bc-ph-lines"></div><span class="bc-glow"></span><div class="bc-ph-icon"><div class="ph-box"></div><span class="ph-label">фото скоро</span></div></div>
-        <div class="bc-chip cs">Server</div>
-        <div class="bc-name">Файловый сервер</div>
-        <div class="bc-specs">Xeon E-2300 · ECC 64 GB<br>6×4 TB RAID6 · Proxmox</div>
-        <div class="bc-foot"><span class="bc-price">~180 000 ₽</span><span class="bc-status">✓ Выдан</span></div>
-      </div>
-    </div>
-  </div>
-</section>
+<div class="section-divider"></div>
 
 <!-- SERVICES -->
-<section class="sec" id="services">
-  <div class="w">
-    <div class="stag reveal">услуги</div>
-    <h2 class="sh reveal">Что мы делаем</h2>
-    <p class="sd reveal">Сборка, апгрейд, чистка, обслуживание. Без навязывания лишнего.</p>
-    <div class="svc-grid">
-      <div class="svc wide reveal">
-        <span class="svc-ico">⚡</span>
-        <div class="svc-title">Сборка ПК под заказ</div>
-        <p class="svc-desc">Подбираем комплектующие под задачи и бюджет — без узких мест и переплат. Полная настройка ОС, драйверов и приложений. Сдаём готовым к работе.</p>
-        <div class="svc-chips"><span class="schip">Игровые</span><span class="schip">Рабочие</span><span class="schip">Студийные</span><span class="schip">Серверные</span><span class="schip">Бюджетные</span></div>
-        <span class="svc-price">от 1 500 ₽ работа · комплектующие по рыночным ценам</span>
+<section id="services">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">// УСЛУГИ</div>
+      <h2 class="section-title">Что мы <span class="accent">делаем</span></h2>
+    </div>
+    <div class="services-grid" style="margin-top:3.5rem">
+
+      <div class="service-card reveal" style="transition-delay:0.05s">
+        <div class="service-icon">🖥️</div>
+        <div class="service-title">Сборка ПК на заказ</div>
+        <div class="service-desc">Индивидуальный подбор комплектующих под ваши задачи и бюджет. Игры, работа, стриминг, рендеринг.</div>
+        <div class="service-tag">CUSTOM BUILD</div>
       </div>
-      <div class="svc reveal"><span class="svc-ico">🔧</span><div class="svc-title">Апгрейд и ремонт</div><p class="svc-desc">Поменяем то, что реально даст прирост. Без воды.</p><span class="svc-price">от 500 ₽</span></div>
-      <div class="svc reveal d1"><span class="svc-ico">🧹</span><div class="svc-title">Чистка и обслуживание</div><p class="svc-desc">Чистка, термопаста, диагностика. ПК работает как новый.</p><span class="svc-price">от 700 ₽</span></div>
-      <div class="svc reveal"><span class="svc-ico">📦</span><div class="svc-title">Большой склад</div><p class="svc-desc">Держим комплектующие в наличии — не ждёшь неделями.</p><span class="svc-price">300 000 ₽ оборот</span></div>
-      <div class="svc reveal d1"><span class="svc-ico">🛡️</span><div class="svc-title">Гарантия на сборку</div><p class="svc-desc">1 год гарантии. Возникла проблема — решаем без вопросов.</p><span class="svc-price">12 месяцев</span></div>
+
+      <div class="service-card reveal" style="transition-delay:0.1s">
+        <div class="service-icon">⚡</div>
+        <div class="service-title">Апгрейд системы</div>
+        <div class="service-desc">Увеличим производительность вашего ПК. Замена процессора, видеокарты, добавление оперативной памяти.</div>
+        <div class="service-tag">UPGRADE</div>
+      </div>
+
+      <div class="service-card reveal" style="transition-delay:0.15s">
+        <div class="service-icon">🛡️</div>
+        <div class="service-title">Диагностика и ремонт</div>
+        <div class="service-desc">Выявим причину нестабильной работы, перегрева или синих экранов. Быстро и честно.</div>
+        <div class="service-tag">DIAGNOSTICS</div>
+      </div>
+
+      <div class="service-card reveal" style="transition-delay:0.2s">
+        <div class="service-icon">🪟</div>
+        <div class="service-title">Установка Windows</div>
+        <div class="service-desc">Чистая установка системы, драйверов и базового ПО. С выездом по Челябинску.</div>
+        <div class="service-tag">OS INSTALL</div>
+      </div>
+
+      <div class="service-card reveal" style="transition-delay:0.25s">
+        <div class="service-icon">🌡️</div>
+        <div class="service-title">Чистка и обслуживание</div>
+        <div class="service-desc">Замена термопасты, чистка от пыли, проверка кулеров. Продлим жизнь системе.</div>
+        <div class="service-tag">MAINTENANCE</div>
+      </div>
+
+      <div class="service-card reveal" style="transition-delay:0.3s">
+        <div class="service-icon">💡</div>
+        <div class="service-title">Кастомная подсветка</div>
+        <div class="service-desc">ARGB-синхронизация, кастомные кабели, слив-станции. Сделаем сборку произведением искусства.</div>
+        <div class="service-tag">CUSTOM RGB</div>
+      </div>
+
     </div>
   </div>
 </section>
+
+<div class="section-divider"></div>
 
 <!-- PROCESS -->
-<section class="sec proc-bg" id="process">
-  <div class="w">
-    <div class="stag reveal">как работаем</div>
-    <h2 class="sh reveal">5 шагов до готового ПК</h2>
-    <p class="sd reveal">Прозрачно на каждом этапе.</p>
-    <div class="proc-grid">
-      <div class="ps reveal"><div class="ps-num">// 01</div><span class="ps-ico">💬</span><div class="ps-title">Консультация</div><p class="ps-desc">Обсуждаем задачи, бюджет, пожелания. Бесплатно.</p></div>
-      <div class="ps reveal d1"><div class="ps-num">// 02</div><span class="ps-ico">🔍</span><div class="ps-title">Конфигурация</div><p class="ps-desc">Подбираем оптимальный набор. Согласовываем список.</p></div>
-      <div class="ps reveal d2"><div class="ps-num">// 03</div><span class="ps-ico">📦</span><div class="ps-title">Закупка</div><p class="ps-desc">Берём со склада или у проверенных поставщиков.</p></div>
-      <div class="ps reveal d3"><div class="ps-num">// 04</div><span class="ps-ico">⚙️</span><div class="ps-title">Сборка и тест</div><p class="ps-desc">Собираем, тестируем под нагрузкой, ставим ОС.</p></div>
-      <div class="ps reveal d4"><div class="ps-num">// 05</div><span class="ps-ico">✅</span><div class="ps-title">Выдача</div><p class="ps-desc">Сдаём с гарантийным листом. Объясняем всё.</p></div>
+<section id="process">
+  <div class="container">
+    <div class="reveal" style="text-align:center">
+      <div class="section-label">// КАК ЭТО РАБОТАЕТ</div>
+      <h2 class="section-title" style="margin:0 auto;text-align:center">Процесс сборки <span class="accent">без сюрпризов</span></h2>
     </div>
-  </div>
-</section>
-
-<!-- IT -->
-<div class="it-bg" id="it">
-  <div class="it-card reveal">
-    <div class="it-code-bg">const bytelab = {
-  services: ['PC Build', 'Landing'],
-  stack: ['HTML', 'Supabase'],
-  deploy: 'Vercel',
-  time: '2-7 days',
-  guarantee: true
-}
-
-// Лендинги
-// PWA приложения
-// Telegram боты
-// Автоматизация</div>
-    <div style="position:relative">
-      <div class="it-badge"><span class="it-bdot"></span><span class="it-btxt">IT-разработка</span></div>
-      <h2 class="it-h">Нужен сайт<br><span class="dim">или приложение?</span></h2>
-      <p class="it-d">Параллельно со сборкой ПК — делаем лендинги, PWA для бизнеса, Telegram-боты и автоматизацию. Быстро, по делу.</p>
-      <div class="it-tags">
-        <span class="it-tag">Лендинги</span>
-        <span class="it-tag">PWA-приложения</span>
-        <span class="it-tag">Telegram-боты</span>
-        <span class="it-tag">CRM и учёт</span>
-        <span class="it-tag">Автоматизация</span>
+    <div class="process-steps">
+      <div class="process-step reveal" style="transition-delay:0.05s">
+        <div class="step-num">01</div>
+        <div class="step-title">Консультация</div>
+        <div class="step-desc">Обсуждаем задачи, бюджет и пожелания. Онлайн или по телефону.</div>
       </div>
-    </div>
-    <div class="it-r">
-      <div class="it-pb">
-        <div class="it-from">лендинг от</div>
-        <div class="it-price">15 000 ₽</div>
-        <div class="it-psub">готов за 3–5 дней</div>
+      <div class="process-step reveal" style="transition-delay:0.1s">
+        <div class="step-num">02</div>
+        <div class="step-title">Подбор</div>
+        <div class="step-desc">Составляем конфигурацию. Вы согласовываете каждую позицию.</div>
       </div>
-      <button class="btn-it" onclick="location.href='tel:+79911745113'">Обсудить проект →</button>
-    </div>
-  </div>
-</div>
-
-<!-- REVIEWS -->
-<section class="sec rv-bg" id="reviews">
-  <div class="w">
-    <div class="stag reveal">отзывы</div>
-    <h2 class="sh reveal">Что говорят клиенты</h2>
-    <p class="sd reveal">Реальные люди, реальные сборки.</p>
-  </div>
-  <div class="rv-scroll" id="rvScroll">
-    <div class="rv-track">
-      <div class="rv"><div class="rv-stars">★★★★★</div><p class="rv-txt">Брал игровой ПК под 1440p. Подобрали конфиг, не пытались впарить лишнего. Работает 8 месяцев — ни одного сбоя.</p><div class="rv-bot"><div class="rv-ava">АС</div><div><div class="rv-name">Алексей С.</div><div class="rv-sub">Игровой ПК «Снайпер»</div></div><span class="rv-src">2GIS</span></div></div>
-      <div class="rv"><div class="rv-stars">★★★★★</div><p class="rv-txt">Заказывал рабочую станцию для монтажа. Сборка аккуратная, всё протестировали. Рендеры летают — очень рекомендую.</p><div class="rv-bot"><div class="rv-ava">МК</div><div><div class="rv-name">Марина К.</div><div class="rv-sub">Рабочая станция «Редактор»</div></div><span class="rv-src">ВКонтакте</span></div></div>
-      <div class="rv"><div class="rv-stars">★★★★★</div><p class="rv-txt">Брал бюджетный вариант для учёбы. За свои деньги — отличный результат. Быстро собрали, помогли с настройкой.</p><div class="rv-bot"><div class="rv-ava">ДМ</div><div><div class="rv-name">Дмитрий М.</div><div class="rv-sub">Сборка «Старт»</div></div><span class="rv-src">Авито</span></div></div>
-      <div class="rv"><div class="rv-stars">★★★★★</div><p class="rv-txt">Честный подход — сказали что реально нужно, а что переплата. Сэкономил и доволен на 100%.</p><div class="rv-bot"><div class="rv-ava">ИН</div><div><div class="rv-name">Иван Н.</div><div class="rv-sub">Игровая сборка</div></div><span class="rv-src">Авито</span></div></div>
-      <div class="rv"><div class="rv-stars">★★★★★</div><p class="rv-txt">Апгрейд старого ПК — поменяли только GPU и SSD вместо покупки нового. Сэкономили приличную сумму.</p><div class="rv-bot"><div class="rv-ava">ОР</div><div><div class="rv-name">Олег Р.</div><div class="rv-sub">Апгрейд GPU + SSD</div></div><span class="rv-src">2GIS</span></div></div>
-      <div class="rv"><div class="rv-stars">★★★★★</div><p class="rv-txt">Серверную сборку под Proxmox — знали что делают, посоветовали нормальные компоненты. Всё работает чётко.</p><div class="rv-bot"><div class="rv-ava">АТ</div><div><div class="rv-name">Артём Т.</div><div class="rv-sub">Файловый сервер</div></div><span class="rv-src">ВКонтакте</span></div></div>
-    </div>
-  </div>
-  <div class="rv-hint">← свайп →</div>
-</section>
-
-<!-- FAQ -->
-<section class="sec" id="faq">
-  <div class="w">
-    <div class="stag reveal">вопросы</div>
-    <h2 class="sh reveal">Часто спрашивают</h2>
-    <div class="faq-wrap reveal">
-      <div class="faq-list">
-        <div class="fi"><button class="fq">Сколько стоит сборка?<span class="fq-ico">+</span></button><div class="fa">Работа по сборке от 1 500 ₽. Комплектующие — от 40 000 ₽ за бюджетный ПК до 400 000 ₽ за топовую станцию. Консультация бесплатная.</div></div>
-        <div class="fi"><button class="fq">Можно привезти свои комплектующие?<span class="fq-ico">+</span></button><div class="fa">Да, принимаем в сборку любые комплектующие. Работа от 1 500 ₽. Перед сборкой проверим всё железо на исправность.</div></div>
-        <div class="fi"><button class="fq">Какая гарантия?<span class="fq-ico">+</span></button><div class="fa">1 год гарантии на нашу работу. Гарантия производителя на комплектующие 1–3 года. Возникла проблема — решаем за наш счёт.</div></div>
-        <div class="fi"><button class="fq">Сколько времени занимает сборка?<span class="fq-ico">+</span></button><div class="fa">Если комплектующие есть на складе — 1–2 рабочих дня. Нужна закупка — 3–7 дней. Всегда предупреждаем заранее.</div></div>
-        <div class="fi"><button class="fq">Работаете с юридическими лицами?<span class="fq-ico">+</span></button><div class="fa">Да, работаем с ИП и ООО. Счёт и закрывающие документы. Позвоните — обсудим детали.</div></div>
+      <div class="process-step reveal" style="transition-delay:0.15s">
+        <div class="step-num">03</div>
+        <div class="step-title">Сборка</div>
+        <div class="step-desc">Собираем, тестируем стресс-тестами, настраиваем BIOS.</div>
+      </div>
+      <div class="process-step reveal" style="transition-delay:0.2s">
+        <div class="step-num">04</div>
+        <div class="step-title">Передача</div>
+        <div class="step-desc">Выдаём паспорт ПК с характеристиками и гарантийным талоном.</div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- CTA -->
-<div class="cta-bg">
-  <div class="cta-card reveal">
-    <div class="cta-glow"></div>
-    <div class="cta-lines"></div>
-    <h2 class="cta-h">Готов собрать<br><span class="glow-text">твой ПК?</span></h2>
-    <p class="cta-d">Позвони — обсудим конфигурацию и бюджет. Консультация бесплатная.</p>
-    <div class="cta-contacts">
-      <a href="tel:+79939352044" class="cc"><span class="cc-ico">🖥️</span><div class="cc-role">Сборка ПК</div><div class="cc-name">Рифат</div><div class="cc-phone">+7 993 935-20-44</div></a>
-      <a href="tel:+79911745113" class="cc"><span class="cc-ico">💻</span><div class="cc-role">IT и сайты</div><div class="cc-name">Даниил</div><div class="cc-phone">+7 991 174-51-13</div></a>
+<section id="cta">
+  <div class="container">
+    <div class="cta-inner reveal">
+      <div class="cta-glow">
+        <div class="cta-ring">
+          <div class="cta-ring-inner">
+            <div class="cta-icon">💻</div>
+          </div>
+        </div>
+      </div>
+      <div class="section-label" style="text-align:center">// СВЯЗАТЬСЯ С НАМИ</div>
+      <h2 class="cta-title">Готовы собрать вашу машину?</h2>
+      <p class="cta-sub">Напишите нам — первая консультация бесплатная. Расскажите о задаче, мы предложим оптимальный вариант.</p>
+      <div class="hero-cta">
+        <a href="tel:+79939352044" class="btn-primary"><span>Позвонить Рифату →</span></a>
+        <a href="https://t.me/Non_mercy1" class="btn-ghost" target="_blank">Telegram</a>
+      </div>
+      <div class="contacts-row">
+        <a href="tel:+79939352044" class="contact-item">
+          <div class="contact-role">// СБОРКА ПК</div>
+          <div class="contact-name">Рифат</div>
+          <div class="contact-phone">+7 993 935-20-44</div>
+        </a>
+        <a href="tel:+79911745113" class="contact-item">
+          <div class="contact-role">// IT · САЙТЫ</div>
+          <div class="contact-name">Даниил</div>
+          <div class="contact-phone">+7 991 174-51-13</div>
+        </a>
+      </div>
     </div>
   </div>
-</div>
+</section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="ft-in">
-    <div>
-      <div class="ft-brand">BYTELAB</div>
-      <div class="ft-sub">Сборка ПК и IT-услуги · Челябинск</div>
-    </div>
-    <nav class="ft-nav">
-      <a href="#builds">Сборки</a>
-      <a href="#services">Услуги</a>
-      <a href="#process">Процесс</a>
-      <a href="#reviews">Отзывы</a>
-      <a href="#it">IT</a>
-    </nav>
-  </div>
-  <div class="ft-bot">
-    <span class="ft-copy">© 2026 BYTELAB · Рифат и Даниил Низамов</span>
-    <span class="ft-dev">Сайт: <a href="tel:+79911745113">Даниил Низамов</a></span>
+  <div class="footer-inner">
+    <div class="footer-brand">BYTE<span>LAB</span></div>
+    <div class="footer-copy">© 2026 BYTELAB · Рифат и Даниил · Челябинск</div>
+    <a href="tel:+79939352044" style="font-family:'Orbitron',sans-serif;font-size:0.7rem;color:var(--cyan);text-decoration:none;letter-spacing:0.1em">+7 993 935-20-44</a>
   </div>
 </footer>
 
 <script>
-// ─── Nav shadow on scroll ───
-const nav=document.getElementById('nav');
-window.addEventListener('scroll',()=>{
-  nav.classList.toggle('active',scrollY>40);
-},{passive:true});
+// ── NAV SCROLL ──
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 50);
+});
 
-// ─── Reveal on scroll ───
-const io=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}
-  });
-},{threshold:.1,rootMargin:'0px 0px -30px 0px'});
-document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-
-// ─── Counter animation ───
-function animateCount(el){
-  const target=parseInt(el.dataset.target,10);
-  const duration=1200;
-  const start=performance.now();
-  const step=ts=>{
-    const p=Math.min((ts-start)/duration,1);
-    const ease=1-Math.pow(1-p,3);
-    el.textContent=Math.floor(ease*target);
-    if(p<1)requestAnimationFrame(step);
-    else el.textContent=target;
-  };
-  requestAnimationFrame(step);
-}
-const countIO=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      e.target.querySelectorAll('.count-up').forEach(animateCount);
-      countIO.unobserve(e.target);
+// ── REVEAL ON SCROLL ──
+const revealEls = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revealObserver.unobserve(e.target);
     }
   });
-},{threshold:.5});
-document.querySelectorAll('.h-stats').forEach(el=>countIO.observe(el));
+}, { threshold: 0.12 });
+revealEls.forEach(el => revealObserver.observe(el));
 
-// ─── FAQ ───
-document.querySelectorAll('.fq').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    const item=btn.closest('.fi');
-    const wasOpen=item.classList.contains('open');
-    document.querySelectorAll('.fi.open').forEach(i=>i.classList.remove('open'));
-    if(!wasOpen)item.classList.add('open');
+// ── CANVAS: LIGHT TRACES → PC CASE SILHOUETTE ──
+const canvas = document.getElementById('traceCanvas');
+const ctx = canvas.getContext('2d');
+
+function resize() {
+  canvas.width = canvas.offsetWidth;
+  canvas.height = canvas.offsetHeight;
+}
+resize();
+window.addEventListener('resize', () => { resize(); initPCOutline(); });
+
+// PC case outline points (normalized 0-1)
+const PC_OUTLINE_RAW = [
+  // Main body
+  [0.35, 0.15], [0.65, 0.15],
+  [0.65, 0.15], [0.68, 0.18],
+  [0.68, 0.18], [0.68, 0.85],
+  [0.68, 0.85], [0.65, 0.88],
+  [0.65, 0.88], [0.35, 0.88],
+  [0.35, 0.88], [0.32, 0.85],
+  [0.32, 0.85], [0.32, 0.18],
+  [0.32, 0.18], [0.35, 0.15],
+  // Power button
+  [0.47, 0.22], [0.53, 0.22],
+  [0.53, 0.22], [0.53, 0.28],
+  [0.53, 0.28], [0.47, 0.28],
+  [0.47, 0.28], [0.47, 0.22],
+  // Optical drive slot
+  [0.38, 0.35], [0.62, 0.35],
+  [0.62, 0.35], [0.62, 0.38],
+  [0.62, 0.38], [0.38, 0.38],
+  [0.38, 0.38], [0.38, 0.35],
+  // Drive bay
+  [0.38, 0.42], [0.62, 0.42],
+  [0.62, 0.42], [0.62, 0.45],
+  [0.62, 0.45], [0.38, 0.45],
+  [0.38, 0.45], [0.38, 0.42],
+  // Vent lines top-right
+  [0.55, 0.20], [0.64, 0.20],
+  [0.55, 0.22], [0.64, 0.22],
+  [0.55, 0.24], [0.64, 0.24],
+  // USB ports bottom
+  [0.40, 0.78], [0.44, 0.78],
+  [0.44, 0.78], [0.44, 0.82],
+  [0.44, 0.82], [0.40, 0.82],
+  [0.40, 0.82], [0.40, 0.78],
+  [0.46, 0.78], [0.50, 0.78],
+  [0.50, 0.78], [0.50, 0.82],
+  [0.50, 0.82], [0.46, 0.82],
+  [0.46, 0.82], [0.46, 0.78],
+];
+
+let pcSegments = [];
+
+function initPCOutline() {
+  const W = canvas.width, H = canvas.height;
+  pcSegments = PC_OUTLINE_RAW.map(([x, y]) => ({
+    x: x * W,
+    y: y * H
+  }));
+}
+initPCOutline();
+
+// Particle class
+class Particle {
+  constructor() { this.reset(true); }
+
+  reset(init = false) {
+    const W = canvas.width, H = canvas.height;
+    this.x = Math.random() * W;
+    this.y = Math.random() * H;
+
+    // Mode: wander or trace outline
+    this.mode = Math.random() < 0.3 ? 'trace' : 'wander';
+
+    if (this.mode === 'trace') {
+      // Pick a random segment from PC outline
+      const segIdx = Math.floor(Math.random() * (pcSegments.length / 2)) * 2;
+      this.targetA = pcSegments[segIdx];
+      this.targetB = pcSegments[segIdx + 1] || pcSegments[0];
+      if (init) {
+        // Start at random position along segment
+        const t = Math.random();
+        this.x = this.targetA.x + (this.targetB.x - this.targetA.x) * t;
+        this.y = this.targetA.y + (this.targetB.y - this.targetA.y) * t;
+      } else {
+        this.x = this.targetA.x;
+        this.y = this.targetA.y;
+      }
+      const dx = this.targetB.x - this.targetA.x;
+      const dy = this.targetB.y - this.targetA.y;
+      const len = Math.sqrt(dx * dx + dy * dy) || 1;
+      const speed = 0.4 + Math.random() * 0.8;
+      this.vx = (dx / len) * speed;
+      this.vy = (dy / len) * speed;
+      this.targetX = this.targetB.x;
+      this.targetY = this.targetB.y;
+      this.color = Math.random() < 0.6 ? '#00f0ff' : '#7b2fff';
+      this.alpha = 0.5 + Math.random() * 0.5;
+      this.width = 0.5 + Math.random() * 1;
+      this.length = 20 + Math.random() * 60;
+    } else {
+      // Wander mode — drift across screen
+      const angle = Math.random() * Math.PI * 2;
+      const speed = 0.15 + Math.random() * 0.4;
+      this.vx = Math.cos(angle) * speed;
+      this.vy = Math.sin(angle) * speed;
+      this.color = Math.random() < 0.5 ? '#00f0ff' : '#7b2fff';
+      this.alpha = 0.08 + Math.random() * 0.2;
+      this.width = 0.3 + Math.random() * 0.8;
+      this.length = 30 + Math.random() * 120;
+    }
+    this.tail = [];
+    this.maxTail = Math.floor(this.length / Math.max(Math.abs(this.vx), Math.abs(this.vy), 0.1));
+    this.maxTail = Math.min(Math.max(this.maxTail, 8), 80);
+    this.dead = false;
+  }
+
+  update() {
+    this.tail.push({ x: this.x, y: this.y });
+    if (this.tail.length > this.maxTail) this.tail.shift();
+
+    this.x += this.vx;
+    this.y += this.vy;
+
+    const W = canvas.width, H = canvas.height;
+
+    if (this.mode === 'trace') {
+      // Check if reached target
+      const dx = this.targetX - this.x;
+      const dy = this.targetY - this.y;
+      if (Math.sqrt(dx * dx + dy * dy) < 2) {
+        this.dead = true;
+      }
+    } else {
+      if (this.x < -200 || this.x > W + 200 || this.y < -200 || this.y > H + 200) {
+        this.dead = true;
+      }
+    }
+  }
+
+  draw() {
+    if (this.tail.length < 2) return;
+    ctx.save();
+    ctx.lineCap = 'round';
+    ctx.lineWidth = this.width;
+    ctx.strokeStyle = this.color;
+
+    for (let i = 1; i < this.tail.length; i++) {
+      const t = i / this.tail.length;
+      const a = t * this.alpha;
+      ctx.globalAlpha = a;
+      ctx.beginPath();
+      ctx.moveTo(this.tail[i - 1].x, this.tail[i - 1].y);
+      ctx.lineTo(this.tail[i].x, this.tail[i].y);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+}
+
+// Glow dot at head
+function drawHead(p) {
+  if (p.tail.length === 0) return;
+  ctx.save();
+  const r = p.width * 2;
+  const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, r * 4);
+  grad.addColorStop(0, p.color.replace(')', ',0.8)').replace('rgb', 'rgba').replace('#00f0ff', 'rgba(0,240,255,').replace('#7b2fff', 'rgba(123,47,255,'));
+  grad.addColorStop(1, 'transparent');
+  // simpler: just alpha
+  ctx.globalAlpha = p.alpha * 0.8;
+  ctx.fillStyle = p.color;
+  ctx.shadowBlur = 6;
+  ctx.shadowColor = p.color;
+  ctx.beginPath();
+  ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
+}
+
+const MAX_PARTICLES = 120;
+let particles = Array.from({ length: MAX_PARTICLES }, () => new Particle());
+
+// Stars/dots background
+const STARS = Array.from({ length: 80 }, () => ({
+  x: Math.random(),
+  y: Math.random(),
+  r: 0.3 + Math.random() * 0.7,
+  a: 0.1 + Math.random() * 0.3,
+  pulse: Math.random() * Math.PI * 2,
+  speed: 0.005 + Math.random() * 0.01
+}));
+
+let frame = 0;
+
+function animate() {
+  requestAnimationFrame(animate);
+  frame++;
+
+  const W = canvas.width, H = canvas.height;
+
+  // Clear with trail effect
+  ctx.fillStyle = 'rgba(5,8,16,0.18)';
+  ctx.fillRect(0, 0, W, H);
+
+  // Background stars
+  STARS.forEach(s => {
+    s.pulse += s.speed;
+    const a = s.a * (0.5 + 0.5 * Math.sin(s.pulse));
+    ctx.save();
+    ctx.globalAlpha = a;
+    ctx.fillStyle = '#ffffff';
+    ctx.beginPath();
+    ctx.arc(s.x * W, s.y * H, s.r, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
   });
-});
 
-// ─── Reviews drag scroll ───
-const rvScroll=document.getElementById('rvScroll');
-let isDown=false,sx=0,sl=0;
-rvScroll.addEventListener('mousedown',e=>{
-  isDown=true;rvScroll.classList.add('grabbing');
-  sx=e.pageX-rvScroll.offsetLeft;sl=rvScroll.scrollLeft;
-});
-rvScroll.addEventListener('mouseleave',()=>{isDown=false;rvScroll.classList.remove('grabbing')});
-rvScroll.addEventListener('mouseup',()=>{isDown=false;rvScroll.classList.remove('grabbing')});
-rvScroll.addEventListener('mousemove',e=>{
-  if(!isDown)return;e.preventDefault();
-  rvScroll.scrollLeft=sl-(e.pageX-rvScroll.offsetLeft-sx)*1.4;
-});
+  // Draw + update particles
+  particles.forEach(p => {
+    p.update();
+    p.draw();
+    drawHead(p);
+  });
 
-// ─── Spec line hover glow on terminal ───
-document.querySelectorAll('.spec-line').forEach(line=>{
-  line.addEventListener('mouseenter',()=>line.style.color='var(--text)');
-  line.addEventListener('mouseleave',()=>line.style.color='');
-});
+  // Remove dead, spawn new
+  particles = particles.filter(p => !p.dead);
+  while (particles.length < MAX_PARTICLES) {
+    particles.push(new Particle());
+  }
+
+  // Every 2s, burst of trace particles
+  if (frame % 120 === 0) {
+    for (let i = 0; i < 8; i++) {
+      const p = new Particle();
+      p.mode = 'trace';
+      const segIdx = Math.floor(Math.random() * (pcSegments.length / 2)) * 2;
+      p.targetA = pcSegments[segIdx];
+      p.targetB = pcSegments[segIdx + 1] || pcSegments[0];
+      p.x = p.targetA.x;
+      p.y = p.targetA.y;
+      const dx = p.targetB.x - p.targetA.x;
+      const dy = p.targetB.y - p.targetA.y;
+      const len = Math.sqrt(dx * dx + dy * dy) || 1;
+      const speed = 0.6 + Math.random();
+      p.vx = (dx / len) * speed;
+      p.vy = (dy / len) * speed;
+      p.targetX = p.targetB.x;
+      p.targetY = p.targetB.y;
+      p.color = Math.random() < 0.5 ? '#00f0ff' : '#7b2fff';
+      p.alpha = 0.8;
+      p.width = 1 + Math.random();
+      particles.push(p);
+    }
+  }
+}
+
+animate();
 </script>
 </body>
 </html>
