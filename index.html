@@ -717,7 +717,7 @@ footer{
 
 <!-- HERO -->
 <section id="hero">
-  <video id="heroBg" autoplay muted loop playsinline preload="auto">
+  <video id="heroBg" autoplay muted loop playsinline preload="auto" crossorigin="anonymous">
     <source src="https://res.cloudinary.com/dak3naevu/video/upload/hailuo-2_3_Dark_space_with_floating_micro_components_RAM_sticks_CPU_chips_motherboard_trace-0_mw5gyv.mp4" type="video/mp4">
   </video>
   <div id="heroOverlay"></div>
@@ -1033,11 +1033,11 @@ class Tracer {
     this.segIndex = segIndex % segments.length;
     this.t = offset; // прогресс по сегменту 0..1
     this.color = Math.random() < 0.6 ? '#00f0ff' : '#7b2fff';
-    this.speed = 0.008 + Math.random() * 0.012; // скорость по сегменту
+    this.speed = 0.006 + Math.random() * 0.008; // скорость по сегменту
     this.width = 1.2 + Math.random() * 1.2;
     this.alpha = 0.7 + Math.random() * 0.3;
     this.tail = []; // история позиций
-    this.maxTail = 35 + Math.floor(Math.random() * 30);
+    this.maxTail = 25 + Math.floor(Math.random() * 20);
   }
 
   update() {
@@ -1144,7 +1144,7 @@ class Wanderer {
 }
 
 // Создаём лучи — по одному на каждые ~2 сегмента, минимум 12
-const NUM_TRACERS = Math.max(12, Math.floor(segments.length * 0.55));
+const NUM_TRACERS = Math.max(8, Math.floor(segments.length * 0.4));
 const tracers = [];
 for (let i = 0; i < NUM_TRACERS; i++) {
   const segIdx = Math.floor((i / NUM_TRACERS) * segments.length);
@@ -1153,16 +1153,21 @@ for (let i = 0; i < NUM_TRACERS; i++) {
 }
 
 // Фоновые дрейфующие линии
-const wanderers = Array.from({ length: 30 }, () => new Wanderer());
+const wanderers = Array.from({ length: 15 }, () => new Wanderer());
 
 // Фоновые звёзды
-const STARS = Array.from({ length: 60 }, () => ({
+const STARS = Array.from({ length: 30 }, () => ({
   x: Math.random(), y: Math.random(),
   r: 0.2 + Math.random() * 0.6,
   a: 0.08 + Math.random() * 0.25,
   phase: Math.random() * Math.PI * 2,
   speed: 0.004 + Math.random() * 0.008,
 }));
+
+// Force video play on load
+const vid = document.getElementById('heroBg');
+vid.addEventListener('canplay', () => { vid.play().catch(()=>{}); });
+vid.load();
 
 function animate() {
   requestAnimationFrame(animate);
