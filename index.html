@@ -3,24 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BYTELAB — Сборка ПК нового поколения · Челябинск</title>
-<meta name="description" content="BYTELAB — сборка ПК на заказ в Челябинске. Игровые компьютеры, апгрейд, диагностика, установка Windows. Гарантия 1 год. Звоните: +7 993 935-20-44">
-<meta name="keywords" content="сборка ПК Челябинск, игровой компьютер на заказ, апгрейд компьютера Челябинск, купить компьютер Челябинск, BYTELAB, сборка компьютера недорого">
-<meta name="author" content="BYTELAB">
+<title>ПК74 — Сборка ПК нового поколения · Челябинск</title>
+<meta name="description" content="ПК74 — сборка ПК на заказ в Челябинске. Игровые компьютеры, апгрейд, диагностика, установка Windows. Гарантия 1 год. Звоните: +7 993 935-20-44">
+<meta name="keywords" content="сборка ПК Челябинск, игровой компьютер на заказ, апгрейд компьютера Челябинск, купить компьютер Челябинск, ПК74, сборка компьютера недорого">
+<meta name="author" content="ПК74">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://sborki74.vercel.app/">
+<link rel="canonical" href="https://sborka-pk74.ru/">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://sborki74.vercel.app/">
-<meta property="og:title" content="BYTELAB — Сборка ПК на заказ в Челябинске">
+<meta property="og:url" content="https://sborka-pk74.ru/">
+<meta property="og:title" content="ПК74 — Сборка ПК на заказ в Челябинске">
 <meta property="og:description" content="Игровые компьютеры, апгрейд, диагностика. Ручная сборка, гарантия 1 год. Звоните: +7 993 935-20-44">
-<meta property="og:image" content="https://sborki74.vercel.app/og-image.png">
+<meta property="og:image" content="https://sborka-pk74.ru/og-image.png">
 <meta property="og:locale" content="ru_RU">
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="BYTELAB — Сборка ПК на заказ в Челябинске">
+<meta name="twitter:title" content="ПК74 — Сборка ПК на заказ в Челябинске">
 <meta name="twitter:description" content="Игровые компьютеры, апгрейд, диагностика. Гарантия 1 год.">
 
 <!-- Geo -->
@@ -32,9 +32,9 @@
 {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  "name": "BYTELAB",
+  "name": "ПК74",
   "description": "Сборка ПК на заказ в Челябинске. Игровые компьютеры, апгрейд, диагностика.",
-  "url": "https://sborki74.vercel.app/",
+  "url": "https://sborka-pk74.ru/",
   "telephone": "+79939352044",
   "address": {
     "@type": "PostalAddress",
@@ -187,18 +187,32 @@ footer{background:var(--bg);padding:3rem 2rem;border-top:1px solid var(--border)
 /* REVEAL — visible by default, animate if JS works */
 .reveal{opacity:1;transform:none}
 
-/* Fallback: если JS не сработал — показываем всё */
+/* REVIEWS */
+#reviews{background:var(--bg3)}
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:4rem}
+@media(max-width:900px){.reviews-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.reviews-grid{grid-template-columns:1fr}}
+.review-card{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:2rem;display:flex;flex-direction:column;gap:1rem;transition:all .3s}
+.review-card:hover{border-color:rgba(0,240,255,.25);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,.4),0 0 30px rgba(0,240,255,.05)}
+.review-stars{color:var(--cyan);font-size:1rem;letter-spacing:.15em;text-shadow:0 0 8px rgba(0,240,255,.5)}
+.review-text{font-size:.9rem;line-height:1.75;color:rgba(255,255,255,.7);flex:1}
+.review-text::before{content:'\201C';font-family:'Orbitron',sans-serif;font-size:2rem;color:var(--cyan);opacity:.4;line-height:0;vertical-align:-.4em;margin-right:.2rem}
+.review-author{display:flex;flex-direction:column;gap:.2rem;border-top:1px solid var(--border);padding-top:1rem}
+.review-name{font-family:'Orbitron',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.08em;color:var(--white)}
+.review-meta{font-size:.75rem;color:var(--grey)}
+.review-tag{display:inline-block;font-family:'Orbitron',sans-serif;font-size:.55rem;letter-spacing:.2em;color:var(--cyan);border:1px solid rgba(0,240,255,.2);padding:.2rem .6rem;border-radius:2px;margin-top:.3rem;align-self:flex-start}
 
 </style>
 </head>
 <body>
 
 <nav id="navbar">
-  <a href="#" class="nav-logo">BYTE<span>LAB</span></a>
+  <a href="#" class="nav-logo">ПК<span>74</span></a>
   <ul class="nav-links">
     <li><a href="#about">О НАС</a></li>
     <li><a href="#services">УСЛУГИ</a></li>
     <li><a href="#process">ПРОЦЕСС</a></li>
+    <li><a href="#reviews">ОТЗЫВЫ</a></li>
     <li><a href="#cta">КОНТАКТЫ</a></li>
   </ul>
   <a href="tel:+79939352044" class="nav-cta">+7 993 935-20-44</a>
@@ -210,7 +224,7 @@ footer{background:var(--bg);padding:3rem 2rem;border-top:1px solid var(--border)
   </video>
   <div id="heroOverlay"></div>
   <div class="hero-content">
-    <div class="neon-logo">BYTELAB</div>
+    <div class="neon-logo">ПК74</div>
     <div class="hero-sub">Челябинск · Сборка ПК нового поколения</div>
     <p class="hero-tagline">Мы не продаём железо. Мы собираем машины,<br>которые работают быстрее мысли.</p>
     <div class="hero-btns">
@@ -234,7 +248,7 @@ footer{background:var(--bg);padding:3rem 2rem;border-top:1px solid var(--border)
     <span class="ticker-item"><b>⬡</b>ASUS ROG · MSI MEG</span>
     <span class="ticker-item"><b>⬡</b>CABLE MANAGEMENT</span>
     <span class="ticker-item"><b>⬡</b>CUSTOM LOOP WC</span>
-    <span class="ticker-item"><b>⬡</b>BYTELAB WARRANTY</span>
+    <span class="ticker-item"><b>⬡</b>ПК74 WARRANTY</span>
     <span class="ticker-item"><b>⬡</b>INTEL CORE ULTRA</span>
     <span class="ticker-item"><b>⬡</b>AMD RYZEN 9</span>
     <span class="ticker-item"><b>⬡</b>RTX 5090</span>
@@ -243,7 +257,7 @@ footer{background:var(--bg);padding:3rem 2rem;border-top:1px solid var(--border)
     <span class="ticker-item"><b>⬡</b>ASUS ROG · MSI MEG</span>
     <span class="ticker-item"><b>⬡</b>CABLE MANAGEMENT</span>
     <span class="ticker-item"><b>⬡</b>CUSTOM LOOP WC</span>
-    <span class="ticker-item"><b>⬡</b>BYTELAB WARRANTY</span>
+    <span class="ticker-item"><b>⬡</b>ПК74 WARRANTY</span>
   </div>
 </div>
 
@@ -254,7 +268,7 @@ footer{background:var(--bg);padding:3rem 2rem;border-top:1px solid var(--border)
         <div class="section-label">// О КОМПАНИИ</div>
         <h2 class="section-title">Сборка — это <span class="outline">искусство</span> точности</h2>
         <div style="margin-top:2rem">
-          <p>Каждый ПК от BYTELAB — это <strong>ручная работа</strong>. Мы подбираем компоненты под задачу: геймеру нужен максимальный FPS, монтажёру — скорость рендера, архитектору — безотказность под нагрузкой.</p>
+          <p>Каждый ПК от ПК74 — это <strong>ручная работа</strong>. Мы подбираем компоненты под задачу: геймеру нужен максимальный FPS, монтажёру — скорость рендера, архитектору — безотказность под нагрузкой.</p>
           <p>Никаких шаблонных сборок. Только индивидуальный подход и полная прозрачность на каждом шаге.</p>
           <a href="#cta" class="btn-primary" style="margin-top:1rem;display:inline-block">Обсудить проект →</a>
         </div>
@@ -269,7 +283,7 @@ footer{background:var(--bg);padding:3rem 2rem;border-top:1px solid var(--border)
           <div class="stat-label">года на рынке компьютерного железа</div>
         </div>
         <div class="stat-card">
-          <div class="stat-num">24ч</div>
+          <div class="stat-num">до 3 недель</div>
           <div class="stat-label">срок сборки под ключ</div>
         </div>
         <div class="stat-card">
@@ -376,6 +390,80 @@ footer{background:var(--bg);padding:3rem 2rem;border-top:1px solid var(--border)
   </div>
 </section>
 
+<section id="reviews">
+  <div class="container">
+    <div class="reveal" style="text-align:center">
+      <div class="section-label">// ЧТО ГОВОРЯТ КЛИЕНТЫ</div>
+      <h2 class="section-title" style="margin:0 auto;text-align:center">Отзывы <span class="outline">реальных людей</span></h2>
+    </div>
+    <div class="reviews-grid">
+
+      <div class="review-card reveal" style="transition-delay:.05s">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">Заказал игровую сборку под Warzone и стриминг. Рифат подобрал всё чётко под бюджет, ничего лишнего. ПК собрали за один день, стресс-тест прошёл без замечаний. Теперь фпс стабильный, стримы идут без лагов — доволен на 100%.</div>
+        <div class="review-author">
+          <div class="review-name">Артём К.</div>
+          <div class="review-meta">Игровая сборка · RTX 4070 + Ryzen 7</div>
+          <span class="review-tag">CUSTOM BUILD</span>
+        </div>
+      </div>
+
+      <div class="review-card reveal" style="transition-delay:.1s">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">Обратился с проблемой перегрева старого ПК. Диагностику сделали быстро, объяснили всё понятно без лишнего технического жаргона. Почистили, поменяли термопасту, поставили нормальный кулер. Теперь комп тихий и холодный. Цена адекватная.</div>
+        <div class="review-author">
+          <div class="review-name">Марина С.</div>
+          <div class="review-meta">Диагностика + обслуживание</div>
+          <span class="review-tag">MAINTENANCE</span>
+        </div>
+      </div>
+
+      <div class="review-card reveal" style="transition-delay:.15s">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">Брал рабочую станцию для 3D-моделирования. Ребята разобрались в задаче, не пытались продать что подороже. Конфигурацию согласовали заранее, паспорт ПК выдали — это прям плюс. Рендер ускорился в разы по сравнению со старым железом.</div>
+        <div class="review-author">
+          <div class="review-name">Игорь Т.</div>
+          <div class="review-meta">Рабочая станция · Ryzen 9 + RTX 4080</div>
+          <span class="review-tag">WORKSTATION</span>
+        </div>
+      </div>
+
+      <div class="review-card reveal" style="transition-delay:.2s">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">Сделали апгрейд — добавили ОЗУ и поставили NVMe SSD. Пришли домой, всё сделали аккуратно, ничего лишнего не трогали. После установки Windows система летает. Рекомендую как надёжных мастеров без разводилова.</div>
+        <div class="review-author">
+          <div class="review-name">Дмитрий Л.</div>
+          <div class="review-meta">Апгрейд + установка Windows</div>
+          <span class="review-tag">UPGRADE</span>
+        </div>
+      </div>
+
+      <div class="review-card reveal" style="transition-delay:.25s">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">Заказала ПК сыну на день рождения. Вообще не разбираюсь в железе, но всё объяснили простым языком, помогли вписаться в бюджет. Сын в восторге — говорит, летает. Гарантийный талон выдали, это важно для меня как для мамы.</div>
+        <div class="review-author">
+          <div class="review-name">Елена В.</div>
+          <div class="review-meta">Игровой ПК в подарок</div>
+          <span class="review-tag">CUSTOM BUILD</span>
+        </div>
+      </div>
+
+      <div class="review-card reveal" style="transition-delay:.3s">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">Обращался уже второй раз — в этот раз за кастомной подсветкой и кабель-менеджментом. Результат выглядит просто огонь, снимаю видео для канала и сборка в кадре смотрится круто. Работа аккуратная, всё аккуратно уложено внутри корпуса.</div>
+        <div class="review-author">
+          <div class="review-name">Никита Р.</div>
+          <div class="review-meta">ARGB подсветка + кабель-менеджмент</div>
+          <span class="review-tag">CUSTOM RGB</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
 <section id="cta">
   <div class="container">
     <div class="cta-inner reveal">
@@ -409,8 +497,8 @@ footer{background:var(--bg);padding:3rem 2rem;border-top:1px solid var(--border)
 
 <footer>
   <div class="footer-inner">
-    <div class="footer-brand">BYTE<span>LAB</span></div>
-    <div class="footer-copy">© 2026 BYTELAB · Рифат и Даниил · Челябинск</div>
+    <div class="footer-brand">ПК<span>74</span></div>
+    <div class="footer-copy">© 2026 ПК74 · Рифат и Даниил · Челябинск</div>
     <a href="tel:+79939352044" class="footer-tel">+7 993 935-20-44</a>
   </div>
 </footer>
